@@ -21,4 +21,18 @@ class User_model extends CI_Model
 
         return false;
     }
+
+    public function privileges($username)
+    {
+        $this->db->select('uzivatel_ID, login, prava');
+        $this->db->from('Uzivatel');
+        $this->db->where('login', $username);
+        $this->db->limit(1);
+
+        $query = $this->db->get();
+        if ($query->num_rows() == 1)
+            return $query->result()->prava;
+
+        return false;
+    }
 }
