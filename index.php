@@ -201,5 +201,7 @@ if (defined('ENVIRONMENT'))
  */
 require_once BASEPATH.'core/CodeIgniter.php';
 
+header('Content-Type: text/html; charset=' . config_item('charset'));
+
 /* End of file index.php */
 /* Location: ./index.php */
