@@ -1,3 +1,5 @@
+USE xmilko01;
+
 DROP TABLE IF EXISTS Konanie_akcie;
 DROP TABLE IF EXISTS Predmet_obor;
 DROP TABLE IF EXISTS Prislusenstvo;
@@ -41,6 +43,7 @@ CREATE TABLE Prislusenstvo (
 CREATE TABLE Uzivatel (
     uzivatel_ID INTEGER NOT NULL AUTO_INCREMENT,
     login VARCHAR(15) NOT NULL,
+    heslo CHAR(32) NOT NULL,
     meno VARCHAR(15),
     priezvisko VARCHAR(20),
     mail VARCHAR(40) NOT NULL,
@@ -51,6 +54,7 @@ CREATE TABLE Uzivatel (
     UNIQUE (login),
     UNIQUE (mail)
 ) ENGINE=InnoDB;
+INSERT INTO Uzivatel (login, heslo, meno, priezvisko, mail, tel_cislo, prava) VALUES ('admin', 'admin', 'Pán', 'Admin', 'xmilko01@stud.fit.vutbr.cz', '123456789', 2);
 
 CREATE TABLE Rocnik (
     rocnik_ID INTEGER NOT NULL AUTO_INCREMENT,
