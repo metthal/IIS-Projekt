@@ -26,14 +26,15 @@ class Admin extends CI_Controller
             'submenu_items' => $submenu_items
         );
 
+        $this->load->view('header', $data);
+        $this->load->view('menu', $data);
+        $this->load->view('submenu', $data);
+
         if ($action == 'users')
             $this->users();
         else if ($action == 'reset')
             $this->reset();
 
-        $this->load->view('header', $data);
-        $this->load->view('menu', $data);
-        $this->load->view('admin_view', $data);
         $this->load->view('footer');
     }
 
