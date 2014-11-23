@@ -31,7 +31,10 @@ class User_model extends CI_Model
 
         $query = $this->db->get();
         if ($query->num_rows() == 1)
-            return $query->result()->prava;
+        {
+            $user = $query->result();
+            return $user[0]->prava;
+        }
 
         return false;
     }

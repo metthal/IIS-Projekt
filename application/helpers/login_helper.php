@@ -45,12 +45,31 @@ if (!function_exists('perform_login'))
     function perform_login($user_data)
     {
         $CI =& get_instance();
-        $login_data = array(
+        $session_data = array(
             'id' => $user_data->uzivatel_ID,
             'username' => $user_data->login,
             'password' => $user_data->heslo,
         );
-        $CI->session->set_userdata('login_data', $login_data);
+        $CI->session->set_userdata('login_data', $session_data);
         $CI->session->set_userdata('last_action', now());
+    }
+}
+
+if (!function_exists('perform_logout'))
+{
+    function perform_logout()
+    {
+        $CI =& get_instance();
+        $CI->session->unset_userdata('login_data');
+    }
+}
+
+if (!function_exists('login_data'))
+{
+    function login_data($field)
+    {
+        $CI =& get_instance();
+        $login_data = $CI->session->userdata('login_data');
+        return $login_data[$field];
     }
 }
