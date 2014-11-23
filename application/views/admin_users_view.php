@@ -1,3 +1,5 @@
+<a href="<?php echo site_url(), 'admin/users/new/?search=', $search; ?>">Pridať užívateľa</a><br>
+
 <form method="get" action="<?php echo site_url(); ?>admin/users/">
     <input type="text" name="search" value="<?php echo $search ?>">
     <input type="submit" value="Hľadať"><br>

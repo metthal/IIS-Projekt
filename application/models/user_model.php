@@ -70,6 +70,21 @@ class User_model extends CI_Model
         return $this->db->get()->result();
     }
 
+    public function add($user_data)
+    {
+        $insert_data = array(
+            'login' => $user_data['login'],
+            'meno' => $user_data['name'],
+            'priezvisko' => $user_data['surname'],
+            'mail' => $user_data['mail']
+        );
+
+        if (array_key_exists('phone_number', $user_data))
+            $insert_data['tel_cislo'] = $user_data['phone_number'];
+
+        $this->db->insert('Uzivatel', $insert_data);
+    }
+
     public function delete($userID)
     {
         $this->db->where('uzivatel_ID', $userID);
