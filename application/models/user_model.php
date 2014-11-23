@@ -44,4 +44,71 @@ class User_model extends CI_Model
         $this->db->delete('Uzivatel', array('prava' => '0'));
         $this->db->delete('Uzivatel', array('prava' => '1'));
     }
+
+    public function get($userID)
+    {
+        $this->db->select('*');
+        $this->db->from('Uzivatel');
+        $this->db->where('uzivatel_ID', $userID);
+        $this->db->limit(1);
+        $query = $this->db->get();
+        if ($query->num_rows() == 1)
+        {
+            $user = $query->result();
+            return $user[0];
+        }
+
+        return false;
+    }
+
+    public function userlist($filter = '')
+    {
+        $this->db->select('uzivatel_ID, login, meno, priezvisko, mail, tel_cislo');
+        $this->db->from('Uzivatel');
+        $this->db->where('login LIKE "' . $filter . '%"');
+
+        return $this->db->get()->result();
+    }
+
+    public function delete($userID)
+    {
+        $this->db->where('uzivatel_ID', $userID);
+        $this->db->delete('Uzivatel');
+    }
+
+    public function edit($userID, $user_data)
+    {
+        $update_data = array(
+            'login' => $user_data['login'],
+            'meno' => $user_data['name'],
+            'priezvisko' => $user_data['surname'],
+            'mail' => $user_data['mail'],
+            'tel_cislo' => $user_data['phone_number']
+        );
+
+        $this->db->where('uzivatel_ID', $userID);
+        $this->db->update('Uzivatel', $update_data);
+    }
+
+    public function check_login($id, $login)
+    {
+        $this->db->select('uzivatel_ID');
+        $this->db->from('Uzivatel');
+        $this->db->where('uzivatel_ID !=', $id);
+        $this->db->where('login', $login);
+
+        $query = $this->db->get();
+        return ($query->num_rows() == 0);
+    }
+
+    public function check_mail($id, $mail)
+    {
+        $this->db->select('uzivatel_ID');
+        $this->db->from('Uzivatel');
+        $this->db->where('uzivatel_ID !=', $id);
+        $this->db->where('mail', $mail);
+
+        $query = $this->db->get();
+        return ($query->num_rows() == 0);
+    }
 }

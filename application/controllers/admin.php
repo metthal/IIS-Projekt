@@ -7,7 +7,7 @@ class Admin extends CI_Controller
         parent::__construct();
     }
 
-    public function index($action = 'users')
+    public function index($action = 'users', $subaction = '')
     {
         if (!check_login())
             redirect('login', 'refresh');
@@ -31,7 +31,20 @@ class Admin extends CI_Controller
         $this->load->view('submenu', $data);
 
         if ($action == 'users')
-            $this->users();
+        {
+            if (func_num_args() >= 3)
+            {
+                $args = func_get_args();
+                if ($subaction == 'edit')
+                    $this->user_edit($args[2]);
+                else if ($subaction == 'delete')
+                    $this->user_delete($args[2]);
+                else
+                    $this->users();
+            }
+            else
+                $this->users();
+        }
         else if ($action == 'reset')
             $this->reset();
 
@@ -40,6 +53,108 @@ class Admin extends CI_Controller
 
     public function users()
     {
+        $this->form_validation->set_rules('search', 'Search', 'trim');
+
+        $search = $this->input->get('search');
+        if ($search == false)
+            $users = $this->user_model->userlist();
+        else
+        {
+            $this->form_validation->run();
+            $users = $this->user_model->userlist($search);
+        }
+
+        $data = array(
+            'search' => $search,
+            'users' => $users
+        );
+        $this->load->view('admin_users_view', $data);
+    }
+
+    public function user_edit($userID)
+    {
+        $search = $this->input->get('search');
+        $user = $this->user_model->get($userID);
+        if ($user == false)
+            redirect('admin/users/?search=' . $search, 'refresh');
+
+        $data = array(
+            'search' => $search,
+            'user' => $user
+        );
+
+        if ($this->input->post('edit_request'))
+        {
+            $this->form_validation->set_rules('login', 'Login', 'trim');
+            $this->form_validation->set_rules('name', 'Name', 'trim');
+            $this->form_validation->set_rules('surname', 'Surname', 'trim');
+            $this->form_validation->set_rules('mail', 'Mail', 'trim|callback_edit_check');
+
+            if ($this->form_validation->run() != false)
+            {
+                $user = $this->input->post(NULL);
+                $this->user_model->edit($userID, $user);
+                redirect('admin/users/?search=' . $this->input->get('search'), 'refresh');
+            }
+        }
+
+        $this->load->view('admin_user_edit_view', $data);
+    }
+
+    public function edit_check($dummy)
+    {
+        $edit_data = $this->input->post(NULL);
+
+        if ($edit_data['login'] == '')
+        {
+            $this->form_validation->set_message('edit_check', 'Prihlasovacie meno nemôže byť prázdne');
+            return false;
+        }
+
+        if ($edit_data['name'] == '')
+        {
+            $this->form_validation->set_message('edit_check', 'Meno nemôže byť prázdne');
+            return false;
+        }
+
+        if ($edit_data['surname'] == '')
+        {
+            $this->form_validation->set_message('edit_check', 'Priezvisko nemôže byť prázdne');
+            return false;
+        }
+
+        if ($edit_data['mail'] == '')
+        {
+            $this->form_validation->set_message('edit_check', 'E-mail nemôže byť prázdny');
+            return false;
+        }
+
+        $this->load->helper('email');
+        if (!valid_email($edit_data['mail']))
+        {
+            $this->form_validation->set_message('edit_check', 'Zadaný e-mail nie je v platnom formáte');
+            return false;
+        }
+
+        if (!$this->user_model->check_login($edit_data['id'], $edit_data['login']))
+        {
+            $this->form_validation->set_message('edit_check', 'Zadané prihlasovacie meno už je obsadené');
+            return false;
+        }
+
+        if (!$this->user_model->check_mail($edit_data['id'], $edit_data['mail']))
+        {
+            $this->form_validation->set_message('edit_check', 'Zadaný e-mail už je obsadený');
+            return false;
+        }
+
+        return true;
+    }
+
+    public function user_delete($userID)
+    {
+        $this->user_model->delete($userID);
+        redirect('admin/users/?search=' . $this->input->get('search'), 'refresh');
     }
 
     public function reset()

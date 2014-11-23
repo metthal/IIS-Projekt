@@ -17,7 +17,7 @@ CREATE TABLE Typ_prislusenstva (
     -- Constraints
     PRIMARY KEY (typ_prislusenstva_ID),
     UNIQUE (nazov_typu)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci;
 
 CREATE TABLE Ucebna (
     ucebna_ID INTEGER NOT NULL AUTO_INCREMENT,
@@ -26,7 +26,7 @@ CREATE TABLE Ucebna (
     -- Constraints
     PRIMARY KEY (ucebna_ID),
     UNIQUE (kridlo,cislo_ucebne)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci;
 
 CREATE TABLE Prislusenstvo (
     prislusenstvo_ID INTEGER NOT NULL AUTO_INCREMENT,
@@ -38,7 +38,7 @@ CREATE TABLE Prislusenstvo (
     FOREIGN KEY (typ_ID) REFERENCES Typ_prislusenstva(typ_prislusenstva_ID) ON DELETE CASCADE,
     FOREIGN KEY (ucebna_ID) REFERENCES Ucebna(ucebna_ID) ON DELETE CASCADE,
     UNIQUE (typ_ID,seriove_cislo)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci;
 
 CREATE TABLE Uzivatel (
     uzivatel_ID INTEGER NOT NULL AUTO_INCREMENT,
@@ -53,7 +53,7 @@ CREATE TABLE Uzivatel (
     PRIMARY KEY (uzivatel_ID),
     UNIQUE (login),
     UNIQUE (mail)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci;
 INSERT INTO Uzivatel (login, heslo, meno, priezvisko, mail, tel_cislo, prava) VALUES ('admin', 'admin', 'Pán', 'Admin', 'xmilko01@stud.fit.vutbr.cz', '123456789', 2);
 INSERT INTO Uzivatel (login, heslo, meno, priezvisko, mail, tel_cislo, prava) VALUES ('prof', 'prof', 'Pán', 'Profesor', 'xvrabe07@stud.fit.vutbr.cz', '123456789', 1);
 INSERT INTO Uzivatel (login, heslo, meno, priezvisko, mail, tel_cislo, prava) VALUES ('student', 'student', 'Pán', 'Student', 'milkovic.marek@gmail.com', '123456789', 0);
@@ -64,7 +64,7 @@ CREATE TABLE Rocnik (
     zaciatok_stud CHAR(9) NOT NULL,
     -- Constraints
     PRIMARY KEY (rocnik_ID)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci;
 
 CREATE TABLE Predmet (
     predmet_ID INTEGER NOT NULL AUTO_INCREMENT,
@@ -76,7 +76,7 @@ CREATE TABLE Predmet (
     PRIMARY KEY (predmet_ID),
     FOREIGN KEY (rocnik_ID) REFERENCES Rocnik(rocnik_ID),
     FOREIGN KEY (garant_ID) REFERENCES Uzivatel(uzivatel_ID)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci;
 
 CREATE TABLE Akcia (
     akcia_ID INTEGER NOT NULL AUTO_INCREMENT,
@@ -92,7 +92,7 @@ CREATE TABLE Akcia (
     PRIMARY KEY (akcia_ID),
     FOREIGN KEY (predmet_ID) REFERENCES Predmet(predmet_ID) ON DELETE CASCADE,
     FOREIGN KEY (uzivatel_ID) REFERENCES Uzivatel(uzivatel_ID) ON DELETE CASCADE
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci;
 
 CREATE TABLE Obor (
     obor_ID INTEGER NOT NULL AUTO_INCREMENT,
@@ -100,7 +100,7 @@ CREATE TABLE Obor (
     titul CHAR(4),
     -- Constraints
     PRIMARY KEY (obor_ID)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci;
 
 CREATE TABLE Konanie_akcie (
     ucebna_ID INTEGER NOT NULL,
@@ -110,7 +110,7 @@ CREATE TABLE Konanie_akcie (
     PRIMARY KEY (ucebna_ID,akcia_ID),
     FOREIGN KEY (ucebna_ID) REFERENCES Ucebna(ucebna_ID) ON DELETE CASCADE,
     FOREIGN KEY (akcia_ID) REFERENCES Akcia(akcia_ID) ON DELETE CASCADE
-);
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci;
 
 CREATE TABLE Predmet_obor (
     predmet_ID INTEGER NOT NULL,
@@ -119,5 +119,6 @@ CREATE TABLE Predmet_obor (
     PRIMARY KEY (predmet_ID,obor_ID),
     FOREIGN KEY (predmet_ID) REFERENCES Predmet(predmet_ID) ON DELETE CASCADE,
     FOREIGN KEY (obor_ID) REFERENCES Obor(obor_ID) ON DELETE CASCADE
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci;
+
 
