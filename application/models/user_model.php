@@ -111,4 +111,30 @@ class User_model extends CI_Model
         $query = $this->db->get();
         return ($query->num_rows() == 0);
     }
+    public function change_passwd($id, $user_data)
+    {
+        $this->db->select('Uzivatel_ID,heslo');
+        $this->db->from('Uzivatel');
+        $this->db->where('uzivatel_ID', $id);
+        $this->db->limit(1);
+
+        $query = $this->db->get();
+        $user = $query->result();
+
+        if( $user_data['old_passwd'] == $user[0]->heslo )
+        {
+            $this->db->where('uzivatel_ID', $id);
+            $this->db->update('Uzivatel',array('heslo' => $user_data['new_passwd']));
+
+        }
+
+    }
+
+    public function change_email($id,$email)
+    {
+        $this->db->select('Uzivatel_ID,mail');
+        $this->db->from('Uzivatel');
+        $this->db->where('uzivatel_ID', $id);
+        $this->db->update('Uzivatel', array('mail' => $email));
+    }
 }
