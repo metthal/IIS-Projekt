@@ -38,4 +38,10 @@ class User_model extends CI_Model
 
         return false;
     }
+
+    public function reset()
+    {
+        $this->db->delete('Uzivatel', array('prava' => '0'));
+        $this->db->delete('Uzivatel', array('prava' => '1'));
+    }
 }

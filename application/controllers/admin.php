@@ -44,6 +44,35 @@ class Admin extends CI_Controller
 
     public function reset()
     {
+        if($this->input->post('reset_request'))
+        {
+            $this->form_validation->set_rules('reset_request', 'ResetRequest','integer');
+            $this->form_validation->run();
+
+            if ($this->input->post('reset_users'))
+            {
+                $this->user_model->reset();
+            }
+            if ($this->input->post('reset_actions'))
+                $this->action_model->reset();
+
+            if ($this->input->post('reset_rooms'))
+            {
+                $this->room_model->reset();
+                $this->form_validation->set_message('reset_request', 'Reset!');
+            }
+
+            if($this->input->post('reset_db'))
+            {
+                $this->action_model->reset();
+                $this->class_model->reset();
+                $this->domain_model->reset();
+                $this->grade_model->reset();
+                $this->room_model->reset();
+                $this->user_model->reset();
+            }
+        }
+        $this->load->view('admin_reset_view');
     }
 }
 
