@@ -18,15 +18,17 @@ class Menu
 
     public function __construct()
     {
-        $this->menus = array(
+        $this->menus['menu_main'] = array(
             // Student privileges
             array(
+                new MenuItem('Novinky', 'home'),
                 new MenuItem('Rozvrh', 'home'),
                 new MenuItem('Profil', 'home'),
                 new MenuItem('Odhlásiť', 'logout')
             ),
             // Professor privileges
             array(
+                new MenuItem('Novinky', 'home'),
                 new MenuItem('Rozvrh', 'home'),
                 new MenuItem('Akcie', 'home'),
                 new MenuItem('Profil', 'home'),
@@ -34,21 +36,37 @@ class Menu
             ),
             // Admin privileges
             array(
+                new MenuItem('Novinky', 'home'),
                 new MenuItem('Rozvrh', 'home'),
                 new MenuItem('Akcie', 'home'),
-                new MenuItem('Administrácia', 'home'),
+                new MenuItem('Administrácia', 'admin'),
                 new MenuItem('Profil', 'home'),
                 new MenuItem('Odhlásiť', 'logout')
             )
         );
+
+        $this->menus['menu_admin'] = array(
+            // Student privileges
+            array(),
+            // Professor privileges
+            array(),
+            // Admin privileges
+            array(
+                new MenuItem('Užívatelia', 'admin/users'),
+                new MenuItem('Obnova', 'admin/reset'),
+            )
+        );
     }
 
-    public function load($privileges)
+    public function load($menu_name, $privileges)
     {
         if ($privileges > 2)
             return false;
 
-        return $this->menus[$privileges];
+        if (!array_key_exists($menu_name, $this->menus))
+            return false;
+
+        return $this->menus[$menu_name][$privileges];
     }
 }
 

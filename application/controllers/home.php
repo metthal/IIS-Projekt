@@ -14,7 +14,7 @@ class Home extends CI_Controller
 
 
         $privileges = $this->user_model->privileges(login_data('id'));
-        $menu_items = $this->menu->load($privileges);
+        $menu_items = $this->menu->load('menu_main', $privileges);
 
         $data = array(
             'title' => 'Home',
