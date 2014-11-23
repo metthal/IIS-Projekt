@@ -39,9 +39,13 @@ class Admin extends CI_Controller
                     $this->user_edit($args[2]);
                 else if ($subaction == 'delete')
                     $this->user_delete($args[2]);
+                else if ($subaction == 'new')
+                    $this->user_new();
                 else
                     $this->users();
             }
+            else if ($subaction == 'new')
+                $this->user_new();
             else
                 $this->users();
         }
@@ -88,7 +92,8 @@ class Admin extends CI_Controller
             $this->form_validation->set_rules('login', 'Login', 'trim');
             $this->form_validation->set_rules('name', 'Name', 'trim');
             $this->form_validation->set_rules('surname', 'Surname', 'trim');
-            $this->form_validation->set_rules('mail', 'Mail', 'trim|callback_edit_check');
+            $this->form_validation->set_rules('mail', 'Mail', 'trim');
+            $this->form_validation->set_rules('phone_number', 'Phone Number', 'trim|callback_check_edit');
 
             if ($this->form_validation->run() != false)
             {
@@ -101,50 +106,50 @@ class Admin extends CI_Controller
         $this->load->view('admin_user_edit_view', $data);
     }
 
-    public function edit_check($dummy)
+    public function check_edit($dummy)
     {
         $edit_data = $this->input->post(NULL);
 
         if ($edit_data['login'] == '')
         {
-            $this->form_validation->set_message('edit_check', 'Prihlasovacie meno nemôže byť prázdne');
+            $this->form_validation->set_message('check_edit', 'Prihlasovacie meno nemôže byť prázdne');
+            return false;
+        }
+
+        if (!$this->user_model->check_login($edit_data['id'], $edit_data['login']))
+        {
+            $this->form_validation->set_message('check_edit', 'Zadané prihlasovacie meno už je obsadené');
             return false;
         }
 
         if ($edit_data['name'] == '')
         {
-            $this->form_validation->set_message('edit_check', 'Meno nemôže byť prázdne');
+            $this->form_validation->set_message('check_edit', 'Meno nemôže byť prázdne');
             return false;
         }
 
         if ($edit_data['surname'] == '')
         {
-            $this->form_validation->set_message('edit_check', 'Priezvisko nemôže byť prázdne');
+            $this->form_validation->set_message('check_edit', 'Priezvisko nemôže byť prázdne');
             return false;
         }
 
         if ($edit_data['mail'] == '')
         {
-            $this->form_validation->set_message('edit_check', 'E-mail nemôže byť prázdny');
+            $this->form_validation->set_message('check_edit', 'E-mail nemôže byť prázdny');
             return false;
         }
 
         $this->load->helper('email');
         if (!valid_email($edit_data['mail']))
         {
-            $this->form_validation->set_message('edit_check', 'Zadaný e-mail nie je v platnom formáte');
-            return false;
-        }
-
-        if (!$this->user_model->check_login($edit_data['id'], $edit_data['login']))
-        {
-            $this->form_validation->set_message('edit_check', 'Zadané prihlasovacie meno už je obsadené');
+            $this->form_validation->set_message('check_edit', 'Zadaný e-mail nie je v platnom formáte');
             return false;
         }
 
         if (!$this->user_model->check_mail($edit_data['id'], $edit_data['mail']))
         {
-            $this->form_validation->set_message('edit_check', 'Zadaný e-mail už je obsadený');
+            $this->form_validation->set_message('check_edit', 'Zadaný e-mail už je obsadený');
             return false;
         }
 
@@ -157,9 +162,77 @@ class Admin extends CI_Controller
         redirect('admin/users/?search=' . $this->input->get('search'), 'refresh');
     }
 
+    public function user_new()
+    {
+        $data = array(
+            'search' => $this->input->get('search')
+        );
+
+        if ($this->input->post('new_request'))
+        {
+            $this->form_validation->set_rules('login', 'Login', 'trim');
+            $this->form_validation->set_rules('mail', 'Mail', 'trim');
+            $this->form_validation->set_rules('name', 'Name', 'trim');
+            $this->form_validation->set_rules('surname', 'Surname', 'trim');
+            $this->form_validation->set_rules('phone_number', 'Phone Number', 'trim|callback_check_new');
+
+            if ($this->form_validation->run() != false)
+            {
+                $this->user_model->add($this->input->post(NULL));
+                redirect('admin/users/?search=' . $this->input->get('search'), 'refresh');
+            }
+        }
+
+        $this->load->view('admin_user_new_view', $data);
+    }
+
+    public function check_new($dummy)
+    {
+        $new_data = $this->input->post(NULL);
+
+        if ($new_data['login'] == '')
+        {
+            $this->form_validation->set_message('check_new', 'Prihlasovacie meno nemôže byť prázdne');
+            return false;
+        }
+
+        if (!$this->user_model->check_login(0, $new_data['login']))
+        {
+            $this->form_validation->set_message('check_new', 'Zadané prihlasovacie meno už je obsadené');
+            return false;
+        }
+
+        if ($new_data['password'] == '')
+        {
+            $this->form_validation->set_message('check_new', 'Heslo nemôže byť prázdne');
+            return false;
+        }
+
+        if ($new_data['mail'] == '')
+        {
+            $this->form_validation->set_message('check_new', 'E-mail nemôže byť prázdny');
+            return false;
+        }
+
+        $this->load->helper('email');
+        if (!valid_email($new_data['mail']))
+        {
+            $this->form_validation->set_message('check_new', 'Zadaný e-mail nie je v platnom formáte');
+            return false;
+        }
+
+        if (!$this->user_model->check_mail(0, $new_data['mail']))
+        {
+            $this->form_validation->set_message('check_new', 'Zadaný e-mail už je obsadený');
+            return false;
+        }
+
+        return true;
+    }
+
     public function reset()
     {
-        if($this->input->post('reset_request'))
+        if ($this->input->post('reset_request'))
         {
             $this->form_validation->set_rules('reset_request', 'ResetRequest','integer');
             $this->form_validation->run();
@@ -177,7 +250,7 @@ class Admin extends CI_Controller
                 $this->form_validation->set_message('reset_request', 'Reset!');
             }
 
-            if($this->input->post('reset_db'))
+            if ($this->input->post('reset_db'))
             {
                 $this->action_model->reset();
                 $this->class_model->reset();
@@ -187,6 +260,7 @@ class Admin extends CI_Controller
                 $this->user_model->reset();
             }
         }
+
         $this->load->view('admin_reset_view');
     }
 }
