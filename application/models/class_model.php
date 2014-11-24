@@ -7,7 +7,6 @@ class Class_model extends CI_Model
         parent::__construct();
     }
 
-
     public function reset()
     {
         $this->db->empty_table('Predmet');

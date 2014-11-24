@@ -14,8 +14,11 @@ class Admin extends CI_Controller
 
         // only users with privileges 2 have access to this site
         $privileges = $this->user_model->privileges(login_data('id'));
-        if ($privileges != 2)
+        if ($privileges == 0)
             redirect('home', 'refresh');
+
+        if ($privileges == 1 && $action == 'users')
+            $action = 'dep';
 
         $menu_items = $this->menu->load('menu_main', $privileges);
         $submenu_items = $this->menu->load('menu_admin', $privileges);

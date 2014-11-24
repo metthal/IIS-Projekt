@@ -23,6 +23,8 @@ class Menu
             array(
                 new MenuItem('Novinky', 'home'),
                 new MenuItem('Rozvrh', 'home'),
+                new MenuItem('Učebne', 'classroom'),
+                new MenuItem('Akcie', 'event'),
                 new MenuItem('Profil', 'profil'),
                 new MenuItem('Odhlásiť', 'logout')
             ),
@@ -30,17 +32,20 @@ class Menu
             array(
                 new MenuItem('Novinky', 'home'),
                 new MenuItem('Rozvrh', 'home'),
-                new MenuItem('Akcie', 'home'),
-                new MenuItem('Profil', 'profil'),
+                new MenuItem('Učebne', 'classroom'),
+                new MenuItem('Akcie', 'event'),
+                new MenuItem('Profil', 'home'),
+                new MenuItem('Administrácia', 'admin'),
                 new MenuItem('Odhlásiť', 'logout')
             ),
             // Admin privileges
             array(
                 new MenuItem('Novinky', 'home'),
                 new MenuItem('Rozvrh', 'home'),
-                new MenuItem('Akcie', 'home'),
-                new MenuItem('Administrácia', 'admin'),
+                new MenuItem('Učebne', 'classroom'),
+                new MenuItem('Akcie', 'event'),
                 new MenuItem('Profil', 'profil'),
+                new MenuItem('Administrácia', 'admin'),
                 new MenuItem('Odhlásiť', 'logout')
             )
         );
@@ -49,9 +54,16 @@ class Menu
             // Student privileges
             array(),
             // Professor privileges
-            array(),
+            array(
+                new MenuItem('Obory', 'admin/dep'),
+                new MenuItem('Predmety', 'admin/subject'),
+                new MenuItem('Ročníky', 'admin/class')
+            ),
             // Admin privileges
             array(
+                new MenuItem('Obory', 'admin/dep'),
+                new MenuItem('Predmety', 'admin/subject'),
+                new MenuItem('Ročníky', 'admin/class'),
                 new MenuItem('Užívatelia', 'admin/users'),
                 new MenuItem('Obnova', 'admin/reset'),
             )
@@ -72,6 +84,40 @@ class Menu
             array(
                 new MenuItem('Zmena hesla', 'profil/change_passwd'),
                 new MenuItem('Zmena e-mailu', 'profil/change_email'),
+            )
+        );
+
+        $this->menus['menu_classroom'] = array(
+            // Student privileges
+            array(
+                new MenuItem('Učebne', 'classroom/rooms'),
+            ),
+            // Professor privileges
+            array(
+                new MenuItem('Učebne', 'classroom/rooms'),
+            ),
+            // Admin privileges
+            array(
+                new MenuItem('Učebne', 'classroom/rooms'),
+                new MenuItem('Príslušenstvá', 'classroom/access/')
+            )
+        );
+
+        $this->menus['menu_events'] = array(
+            // Student privileges
+            array(
+                new MenuItem('Termíny', 'event/action'),
+                new MenuItem('Akcie', 'event/list')
+            ),
+            // Professor privileges
+            array(
+                new MenuItem('Termíny', 'event/action'),
+                new MenuItem('Akcie', 'event/list')
+            ),
+            // Admin privileges
+            array(
+                new MenuItem('Termíny', 'event/action'),
+                new MenuItem('Akcie', 'event/list')
             )
         );
     }

@@ -38,6 +38,8 @@
 |
 */
 
+$route['event/(:any)'] = 'event/index/$1';
+$route['classroom/(:any)'] = 'classroom/index/$1';
 $route['admin/(:any)'] = 'admin/index/$1';
 $route['profil/(:any)'] = 'profil/index/$1';
 $route['default_controller'] = 'login';
