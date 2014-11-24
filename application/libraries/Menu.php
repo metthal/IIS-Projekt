@@ -63,7 +63,7 @@ class Menu
             array(
                 new MenuItem('Obory', 'admin/dep'),
                 new MenuItem('Predmety', 'admin/subject'),
-                new MenuItem('Ročníky', 'admin/class'),
+                new MenuItem('Ročníky', 'admin/grade'),
                 new MenuItem('Užívatelia', 'admin/users'),
                 new MenuItem('Obnova', 'admin/reset'),
             )

@@ -58,12 +58,22 @@ INSERT INTO Uzivatel (login, heslo, meno, priezvisko, mail, tel_cislo, prava) VA
 INSERT INTO Uzivatel (login, heslo, meno, priezvisko, mail, tel_cislo, prava) VALUES ('prof', 'prof', 'Pán', 'Profesor', 'xvrabe07@stud.fit.vutbr.cz', '123456789', 1);
 INSERT INTO Uzivatel (login, heslo, meno, priezvisko, mail, tel_cislo, prava) VALUES ('student', 'student', 'Pán', 'Student', 'milkovic.marek@gmail.com', '123456789', 0);
 
+CREATE TABLE Obor (
+    obor_ID INTEGER NOT NULL AUTO_INCREMENT,
+    nazov VARCHAR(30) NOT NULL,
+    titul CHAR(4),
+    -- Constraints
+    PRIMARY KEY (obor_ID)
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci;
+
 CREATE TABLE Rocnik (
     rocnik_ID INTEGER NOT NULL AUTO_INCREMENT,
+    obor_ID INTEGER NOT NULL,
     nazov VARCHAR(30) NOT NULL,
     zaciatok_stud CHAR(9) NOT NULL,
     -- Constraints
-    PRIMARY KEY (rocnik_ID)
+    PRIMARY KEY (rocnik_ID),
+    FOREIGN KEY (obor_ID) REFERENCES Obor(obor_ID) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci;
 
 CREATE TABLE Predmet (
@@ -74,8 +84,8 @@ CREATE TABLE Predmet (
     nazov_predmetu VARCHAR(20) NOT NULL,
     -- Constraints
     PRIMARY KEY (predmet_ID),
-    FOREIGN KEY (rocnik_ID) REFERENCES Rocnik(rocnik_ID),
-    FOREIGN KEY (garant_ID) REFERENCES Uzivatel(uzivatel_ID)
+    FOREIGN KEY (rocnik_ID) REFERENCES Rocnik(rocnik_ID) ON DELETE CASCADE,
+    FOREIGN KEY (garant_ID) REFERENCES Uzivatel(uzivatel_ID) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci;
 
 CREATE TABLE Akcia (
@@ -92,14 +102,6 @@ CREATE TABLE Akcia (
     PRIMARY KEY (akcia_ID),
     FOREIGN KEY (predmet_ID) REFERENCES Predmet(predmet_ID) ON DELETE CASCADE,
     FOREIGN KEY (uzivatel_ID) REFERENCES Uzivatel(uzivatel_ID) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci;
-
-CREATE TABLE Obor (
-    obor_ID INTEGER NOT NULL AUTO_INCREMENT,
-    nazov VARCHAR(30) NOT NULL,
-    titul CHAR(4),
-    -- Constraints
-    PRIMARY KEY (obor_ID)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci;
 
 CREATE TABLE Konanie_akcie (
