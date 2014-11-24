@@ -99,7 +99,8 @@ class Menu
             // Admin privileges
             array(
                 new MenuItem('Učebne', 'classroom/rooms'),
-                new MenuItem('Príslušenstvá', 'classroom/access/')
+                new MenuItem('Príslušenstvá', 'classroom/access/'),
+                new MenuItem('Typ Prislusenstva', 'classroom/typeaccess')
             )
         );
 
