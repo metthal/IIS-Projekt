@@ -35,6 +35,9 @@ class Admin extends CI_Controller
 
         if ($action == 'users')
         {
+            if ($privileges != 2)
+                redirect('home', 'refresh');
+
             if (func_num_args() >= 3)
             {
                 $args = func_get_args();
@@ -53,7 +56,50 @@ class Admin extends CI_Controller
                 $this->users();
         }
         else if ($action == 'reset')
+        {
+            if ($privileges != 2)
+                redirect('home', 'refresh');
+
             $this->reset();
+        }
+        else if ($action == 'dep')
+        {
+            if (func_num_args() >= 3)
+            {
+                $args = func_get_args();
+                if ($subaction == 'edit')
+                    $this->dep_edit($args[2]);
+                else if ($subaction == 'delete')
+                    $this->dep_delete($args[2]);
+                else if ($subaction == 'new')
+                    $this->dep_new();
+                else
+                    $this->deps();
+            }
+            else if ($subaction == 'new')
+                $this->dep_new();
+            else
+                $this->deps();
+        }
+        else if ($action == 'grade')
+        {
+            if (func_num_args() >= 3)
+            {
+                $args = func_get_args();
+                if ($subaction == 'edit')
+                    $this->grade_edit($args[2]);
+                else if ($subaction == 'delete')
+                    $this->grade_delete($args[2]);
+                else if ($subaction == 'new')
+                    $this->grade_new();
+                else
+                    $this->grades();
+            }
+            else if ($subaction == 'new')
+                $this->grade_new();
+            else
+                $this->grades();
+        }
 
         $this->load->view('footer');
     }
@@ -96,7 +142,7 @@ class Admin extends CI_Controller
             $this->form_validation->set_rules('name', 'Name', 'trim');
             $this->form_validation->set_rules('surname', 'Surname', 'trim');
             $this->form_validation->set_rules('mail', 'Mail', 'trim');
-            $this->form_validation->set_rules('phone_number', 'Phone Number', 'trim|callback_check_edit');
+            $this->form_validation->set_rules('phone_number', 'Phone Number', 'trim|callback_check_edit_user');
 
             if ($this->form_validation->run() != false)
             {
@@ -109,50 +155,50 @@ class Admin extends CI_Controller
         $this->load->view('admin_user_edit_view', $data);
     }
 
-    public function check_edit($dummy)
+    public function check_edit_user($dummy)
     {
         $edit_data = $this->input->post(NULL);
 
         if ($edit_data['login'] == '')
         {
-            $this->form_validation->set_message('check_edit', 'Prihlasovacie meno nemôže byť prázdne');
+            $this->form_validation->set_message('check_edit_user', 'Prihlasovacie meno nemôže byť prázdne');
             return false;
         }
 
         if (!$this->user_model->check_login($edit_data['id'], $edit_data['login']))
         {
-            $this->form_validation->set_message('check_edit', 'Zadané prihlasovacie meno už je obsadené');
+            $this->form_validation->set_message('check_edit_user', 'Zadané prihlasovacie meno už je obsadené');
             return false;
         }
 
         if ($edit_data['name'] == '')
         {
-            $this->form_validation->set_message('check_edit', 'Meno nemôže byť prázdne');
+            $this->form_validation->set_message('check_edit_user', 'Meno nemôže byť prázdne');
             return false;
         }
 
         if ($edit_data['surname'] == '')
         {
-            $this->form_validation->set_message('check_edit', 'Priezvisko nemôže byť prázdne');
+            $this->form_validation->set_message('check_edit_user', 'Priezvisko nemôže byť prázdne');
             return false;
         }
 
         if ($edit_data['mail'] == '')
         {
-            $this->form_validation->set_message('check_edit', 'E-mail nemôže byť prázdny');
+            $this->form_validation->set_message('check_edit_user', 'E-mail nemôže byť prázdny');
             return false;
         }
 
         $this->load->helper('email');
         if (!valid_email($edit_data['mail']))
         {
-            $this->form_validation->set_message('check_edit', 'Zadaný e-mail nie je v platnom formáte');
+            $this->form_validation->set_message('check_edit_user', 'Zadaný e-mail nie je v platnom formáte');
             return false;
         }
 
         if (!$this->user_model->check_mail($edit_data['id'], $edit_data['mail']))
         {
-            $this->form_validation->set_message('check_edit', 'Zadaný e-mail už je obsadený');
+            $this->form_validation->set_message('check_edit_user', 'Zadaný e-mail už je obsadený');
             return false;
         }
 
@@ -177,7 +223,7 @@ class Admin extends CI_Controller
             $this->form_validation->set_rules('mail', 'Mail', 'trim');
             $this->form_validation->set_rules('name', 'Name', 'trim');
             $this->form_validation->set_rules('surname', 'Surname', 'trim');
-            $this->form_validation->set_rules('phone_number', 'Phone Number', 'trim|callback_check_new');
+            $this->form_validation->set_rules('phone_number', 'Phone Number', 'trim|callback_check_new_user');
 
             if ($this->form_validation->run() != false)
             {
@@ -189,44 +235,44 @@ class Admin extends CI_Controller
         $this->load->view('admin_user_new_view', $data);
     }
 
-    public function check_new($dummy)
+    public function check_new_user($dummy)
     {
         $new_data = $this->input->post(NULL);
 
         if ($new_data['login'] == '')
         {
-            $this->form_validation->set_message('check_new', 'Prihlasovacie meno nemôže byť prázdne');
+            $this->form_validation->set_message('check_new_user', 'Prihlasovacie meno nemôže byť prázdne');
             return false;
         }
 
         if (!$this->user_model->check_login(0, $new_data['login']))
         {
-            $this->form_validation->set_message('check_new', 'Zadané prihlasovacie meno už je obsadené');
+            $this->form_validation->set_message('check_new_user', 'Zadané prihlasovacie meno už je obsadené');
             return false;
         }
 
         if ($new_data['password'] == '')
         {
-            $this->form_validation->set_message('check_new', 'Heslo nemôže byť prázdne');
+            $this->form_validation->set_message('check_new_user', 'Heslo nemôže byť prázdne');
             return false;
         }
 
         if ($new_data['mail'] == '')
         {
-            $this->form_validation->set_message('check_new', 'E-mail nemôže byť prázdny');
+            $this->form_validation->set_message('check_new_user', 'E-mail nemôže byť prázdny');
             return false;
         }
 
         $this->load->helper('email');
         if (!valid_email($new_data['mail']))
         {
-            $this->form_validation->set_message('check_new', 'Zadaný e-mail nie je v platnom formáte');
+            $this->form_validation->set_message('check_new_user', 'Zadaný e-mail nie je v platnom formáte');
             return false;
         }
 
         if (!$this->user_model->check_mail(0, $new_data['mail']))
         {
-            $this->form_validation->set_message('check_new', 'Zadaný e-mail už je obsadený');
+            $this->form_validation->set_message('check_new_user', 'Zadaný e-mail už je obsadený');
             return false;
         }
 
@@ -257,7 +303,7 @@ class Admin extends CI_Controller
             {
                 $this->action_model->reset();
                 $this->class_model->reset();
-                $this->domain_model->reset();
+                $this->dep_model->reset();
                 $this->grade_model->reset();
                 $this->room_model->reset();
                 $this->user_model->reset();
@@ -265,6 +311,207 @@ class Admin extends CI_Controller
         }
 
         $this->load->view('admin_reset_view');
+    }
+
+    public function deps()
+    {
+        $this->form_validation->set_rules('search', 'Search', 'trim');
+
+        $search = $this->input->get('search');
+        if ($search == false)
+            $deps = $this->dep_model->deplist();
+        else
+        {
+            $this->form_validation->run();
+            $deps = $this->dep_model->deplist($search);
+        }
+
+        $data = array(
+            'search' => $search,
+            'deps' => $deps
+        );
+
+        $this->load->view('admin_deps_view', $data);
+    }
+
+    public function dep_new()
+    {
+        $data = array(
+            'search' => $this->input->get('search')
+        );
+
+        if ($this->input->post('new_request'))
+        {
+            $this->form_validation->set_rules('name', 'Name', 'trim');
+            $this->form_validation->set_rules('title', 'Title', 'trim|callback_check_new_dep');
+
+            if ($this->form_validation->run() != false)
+            {
+                $this->dep_model->add($this->input->post(NULL));
+                redirect('admin/dep/?search=' . $this->input->get('search'), 'refresh');
+            }
+        }
+
+        $this->load->view('admin_dep_new_view', $data);
+    }
+
+    public function dep_edit($depID)
+    {
+        $search = $this->input->get('search');
+        $dep = $this->dep_model->get($depID);
+        if ($dep == false)
+            redirect('admin/dep/?search=' . $search, 'refresh');
+
+        $data = array(
+            'search' => $search,
+            'dep' => $dep
+        );
+
+        if ($this->input->post('edit_request'))
+        {
+            $this->form_validation->set_rules('name', 'Name', 'trim');
+            $this->form_validation->set_rules('title', 'Title', 'trim|callback_check_new_dep');
+
+            if ($this->form_validation->run() != false)
+            {
+                $dep = $this->input->post(NULL);
+                $this->dep_model->edit($depID, $dep);
+                redirect('admin/dep/?search=' . $this->input->get('search'), 'refresh');
+            }
+        }
+
+        $this->load->view('admin_dep_edit_view', $data);
+    }
+
+    public function dep_delete($depID)
+    {
+        $this->dep_model->delete($depID);
+        redirect('admin/dep/?search=' . $this->input->get('search'), 'refresh');
+    }
+
+
+    public function check_new_dep($dummy)
+    {
+        $new_data = $this->input->post(NULL);
+
+        if ($new_data['name'] == '')
+        {
+            $this->form_validation->set_message('check_new_dep', 'Názov nemôže byť prázdny');
+            return false;
+        }
+
+        if ($new_data['title'] == '')
+        {
+            $this->form_validation->set_message('check_new_dep', 'Titul nemôže byť prázdny');
+            return false;
+        }
+
+        return true;
+    }
+
+    public function grades()
+    {
+        $this->form_validation->set_rules('search', 'Search', 'trim');
+
+        $search = $this->input->get('search');
+        if ($search == false)
+            $grades = $this->grade_model->gradelist();
+        else
+        {
+            $this->form_validation->run();
+            $grades = $this->grade_model->gradelist($search);
+        }
+
+        $data = array(
+            'search' => $search,
+            'grades' => $grades,
+            'deps' => $this->dep_model->deplist()
+        );
+
+        $this->load->view('admin_grades_view', $data);
+    }
+
+    public function grade_new()
+    {
+        $data = array(
+            'search' => $this->input->get('search'),
+            'deps' => $this->dep_model->deplist()
+        );
+
+        if ($this->input->post('new_request'))
+        {
+            $this->form_validation->set_rules('name', 'Name', 'trim');
+            $this->form_validation->set_rules('start_date', 'Start date', 'trim|callback_check_new_grade');
+
+            if ($this->form_validation->run() != false)
+            {
+                $this->grade_model->add($this->input->post(NULL));
+                redirect('admin/grade/?search=' . $this->input->get('search'), 'refresh');
+            }
+        }
+
+        $this->load->view('admin_grade_new_view', $data);
+    }
+
+    public function grade_edit($gradeID)
+    {
+        $search = $this->input->get('search');
+        $grade = $this->grade_model->get($gradeID);
+        if ($grade == false)
+            redirect('admin/grade/?search=' . $search, 'refresh');
+
+        $data = array(
+            'search' => $search,
+            'grade' => $grade,
+            'deps' => $this->dep_model->deplist()
+        );
+
+        if ($this->input->post('edit_request'))
+        {
+            $this->form_validation->set_rules('name', 'Name', 'trim');
+            $this->form_validation->set_rules('', 'Title', 'trim|callback_check_new_grade');
+
+            if ($this->form_validation->run() != false)
+            {
+                $grade = $this->input->post(NULL);
+                $this->grade_model->edit($gradeID, $grade);
+                redirect('admin/grade/?search=' . $this->input->get('search'), 'refresh');
+            }
+        }
+
+        $this->load->view('admin_grade_edit_view', $data);
+    }
+
+    public function grade_delete($gradeID)
+    {
+        $this->grade_model->delete($gradeID);
+        redirect('admin/grade/?search=' . $this->input->get('search'), 'refresh');
+    }
+
+
+    public function check_new_grade($dummy)
+    {
+        $new_data = $this->input->post(NULL);
+
+        if ($new_data['name'] == '')
+        {
+            $this->form_validation->set_message('check_new_grade', 'Názov nemôže byť prázdny');
+            return false;
+        }
+
+        if ($new_data['start_date'] == '')
+        {
+            $this->form_validation->set_message('check_new_grade', 'Začiatok štúdia nemôže byť prázdny');
+            return false;
+        }
+
+        if ($new_data['dep'] == '')
+        {
+            $this->form_validation->set_message('check_new_grade', 'Musíte zvoliť obor pre ročník');
+            return false;
+        }
+
+        return true;
     }
 }
 
