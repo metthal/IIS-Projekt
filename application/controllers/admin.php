@@ -100,6 +100,25 @@ class Admin extends CI_Controller
             else
                 $this->grades();
         }
+        else if ($action == 'subject')
+        {
+            if (func_num_args() >= 3)
+            {
+                $args = func_get_args();
+                if ($subaction == 'edit')
+                    $this->subject_edit($args[2]);
+                else if ($subaction == 'delete')
+                    $this->subject_delete($args[2]);
+                else if ($subaction == 'new')
+                    $this->subject_new();
+                else
+                    $this->subjects();
+            }
+            else if ($subaction == 'new')
+                $this->subject_new();
+            else
+                $this->subjects();
+        }
 
         $this->load->view('footer');
     }
@@ -508,6 +527,124 @@ class Admin extends CI_Controller
         if ($new_data['dep'] == '')
         {
             $this->form_validation->set_message('check_new_grade', 'Musíte zvoliť obor pre ročník');
+            return false;
+        }
+
+        return true;
+    }
+
+    public function subjects()
+    {
+        $this->form_validation->set_rules('search', 'Search', 'trim');
+
+        $search = $this->input->get('search');
+        if ($search == false)
+            $subjects = $this->subject_model->subjectlist();
+        else
+        {
+            $this->form_validation->run();
+            $subjects = $this->subject_model->subjectlist($search);
+        }
+
+        $data = array(
+            'search' => $search,
+            'subjects' => $subjects,
+            'grades' => $this->grade_model->gradelist(),
+            'users' => $this->user_model->userlist()
+        );
+
+        $this->load->view('admin_subjects_view', $data);
+    }
+
+    public function subject_new()
+    {
+        $data = array(
+            'search' => $this->input->get('search'),
+            'grades' => $this->grade_model->gradelist(),
+            'users' => $this->user_model->userlist()
+        );
+
+        if ($this->input->post('new_request'))
+        {
+            $this->form_validation->set_rules('name', 'Name', 'trim');
+            $this->form_validation->set_rules('garant', 'Garant', 'trim');
+            $this->form_validation->set_rules('grade', 'Grade', 'trim');
+            $this->form_validation->set_rules('credits', 'Credits', 'trim|callback_check_new_subject');
+
+            if ($this->form_validation->run() != false)
+            {
+                $this->subject_model->add($this->input->post(NULL));
+                redirect('admin/subject/?search=' . $this->input->get('search'), 'refresh');
+            }
+        }
+
+        $this->load->view('admin_subject_new_view', $data);
+    }
+
+    public function subject_edit($subjectID)
+    {
+        $search = $this->input->get('search');
+        $subject = $this->subject_model->get($subjectID);
+        if ($subject == false)
+            redirect('admin/subject/?search=' . $search, 'refresh');
+
+        $data = array(
+            'search' => $search,
+            'subject' => $subject,
+            'grades' => $this->grade_model->gradelist(),
+            'users' => $this->user_model->userlist()
+        );
+
+        if ($this->input->post('edit_request'))
+        {
+            $this->form_validation->set_rules('name', 'Name', 'trim');
+            $this->form_validation->set_rules('garant', 'Garant', 'trim');
+            $this->form_validation->set_rules('grade', 'Grade', 'trim');
+            $this->form_validation->set_rules('credits', 'Credits', 'trim|callback_check_new_subject');
+
+            if ($this->form_validation->run() != false)
+            {
+                $subject = $this->input->post(NULL);
+                $this->subject_model->edit($subjectID, $subject);
+                redirect('admin/subject/?search=' . $this->input->get('search'), 'refresh');
+            }
+        }
+
+        $this->load->view('admin_subject_edit_view', $data);
+    }
+
+    public function subject_delete($subjectID)
+    {
+        $this->subject_model->delete($subjectID);
+        redirect('admin/subject/?search=' . $this->input->get('search'), 'refresh');
+    }
+
+
+    public function check_new_subject($dummy)
+    {
+        $new_data = $this->input->post(NULL);
+
+        if ($new_data['name'] == '')
+        {
+            $this->form_validation->set_message('check_new_subject', 'Názov nemôže byť prázdny');
+            return false;
+        }
+
+        if ($new_data['credits'] == '')
+        {
+            $this->form_validation->set_message('check_new_subject', 'Kredity nemôžu byť prázdne');
+            return false;
+        }
+
+        if ($new_data['garant'] == '')
+        {
+            $this->form_validation->set_message('check_new_subject', 'Musíte zvoliť garanta pre predmet');
+            return false;
+        }
+
+        if ($new_data['grade'] == '')
+        {
+            $this->form_validation->set_message('check_new_subject', 'Musíte zvoliť ročník pre predmet');
             return false;
         }
 
