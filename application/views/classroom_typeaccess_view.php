@@ -8,7 +8,7 @@
 <table>
 <?php
 
-foreach ($typeacceses as &$typeaccess)
+foreach ($typeaccesses as &$typeaccess)
 {
     echo '<tr>', PHP_EOL;
     echo '<td>', $typeaccess->nazov_typu, '</td>', PHP_EOL;

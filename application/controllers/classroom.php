@@ -179,9 +179,11 @@ class Classroom extends CI_Controller
             $access = $this->access_model->accesslist($search);
         }
 
+        $typeaccesses = $this->typeaccess_model->typeaccesslist();
         $data = array(
             'search' => $search,
             'accesss' => $access,
+            'typeaccesses' => $typeaccesses,
             'can_create' => ($this->user_model->privileges(login_data('id')) <= 1 ? false : true)
         );
 
@@ -204,7 +206,8 @@ class Classroom extends CI_Controller
 
         $data = array(
             'search' => $search,
-            'access' => $access
+            'access' => $access,
+            'typeaccesses' => $this->typeaccess_model->typeaccesslist()
         );
 
         if ($this->input->post('edit_request'))
@@ -226,7 +229,8 @@ class Classroom extends CI_Controller
     public function access_new()
     {
         $data = array(
-            'search' => $this->input->get('search')
+            'search' => $this->input->get('search'),
+            'typeaccesses' => $this->typeaccess_model->typeaccesslist()
         );
 
         if ($this->input->post('new_request'))
@@ -261,7 +265,7 @@ class Classroom extends CI_Controller
 
         $data = array(
             'search' => $search,
-            'typeacceses' => $typeaccess,
+            'typeaccesses' => $typeaccess,
             'can_create' => ($this->user_model->privileges(login_data('id')) <= 1 ? false : true)
         );
 
@@ -283,7 +287,7 @@ class Classroom extends CI_Controller
 
         $data = array(
             'search' => $search,
-            'typeaccess' => $typeaccess
+            'typeaccesses' => $typeaccess
         );
 
         if ($this->input->post('edit_request'))
