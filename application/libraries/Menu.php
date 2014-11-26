@@ -22,7 +22,7 @@ class Menu
             // Student privileges
             array(
                 new MenuItem('Novinky', 'home'),
-                new MenuItem('Rozvrh', 'home'),
+                new MenuItem('Rozvrh', 'timetable'),
                 new MenuItem('Učebne', 'classroom'),
                 new MenuItem('Akcie', 'event'),
                 new MenuItem('Profil', 'profil'),
@@ -31,17 +31,17 @@ class Menu
             // Professor privileges
             array(
                 new MenuItem('Novinky', 'home'),
-                new MenuItem('Rozvrh', 'home'),
+                new MenuItem('Rozvrh', 'timetable'),
                 new MenuItem('Učebne', 'classroom'),
                 new MenuItem('Akcie', 'event'),
-                new MenuItem('Profil', 'home'),
+                new MenuItem('Profil', 'profil'),
                 new MenuItem('Administrácia', 'admin'),
                 new MenuItem('Odhlásiť', 'logout')
             ),
             // Admin privileges
             array(
                 new MenuItem('Novinky', 'home'),
-                new MenuItem('Rozvrh', 'home'),
+                new MenuItem('Rozvrh', 'timetable'),
                 new MenuItem('Učebne', 'classroom'),
                 new MenuItem('Akcie', 'event'),
                 new MenuItem('Profil', 'profil'),

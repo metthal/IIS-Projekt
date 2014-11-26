@@ -54,7 +54,16 @@ class Room_model extends CI_Model
         $this->db->delete('Ucebna');
     }
 
-    public function room_edit($roomID,$room_data)
+    public function schedules_for($roomID)
+    {
+        $query = 'SELECT k.ucebna_ID, k.akcia_ID, a.nazov, a.datum_konania, a.trvanie FROM Konanie_akcie k
+            INNER JOIN Akcia a ON k.akcia_ID = a.akcia_ID
+            WHERE k.ucebna_ID =' . $roomID;
+
+        return $this->db->query($query)->result();
+    }
+
+    public function room_edit($roomID, $room_data)
     {
         $insert_data = array(
             'cislo_ucebne' => $room_data['room_no'],
