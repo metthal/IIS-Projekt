@@ -101,9 +101,11 @@ class Classroom extends CI_Controller
             $rooms = $this->room_model->roomlist($search);
         }
 
+        $accesses = $this->access_model->accesslist();
         $data = array(
             'search' => $search,
             'rooms' => $rooms,
+            'accesses' => $accesses,
             'can_create' => ($this->user_model->privileges(login_data('id')) == 0 ? false : true)
         );
         $this->load->view('classroom_rooms_view', $data);
@@ -112,7 +114,7 @@ class Classroom extends CI_Controller
     public function room_delete($roomID)
     {
         $this->room_model->room_delete($roomID);
-        redirect('classroom/rooms/?search=' . $this->input->get('search'), 'refresh');
+        //redirect('classroom/rooms/?search=' . $this->input->get('search'), 'refresh');
     }
 
     public function room_edit($roomID)
@@ -124,13 +126,15 @@ class Classroom extends CI_Controller
 
         $data = array(
             'search' => $search,
-            'room' => $room
+            'room' => $room,
+            'accesses' => $this->access_model->accesslist()
         );
 
         if ($this->input->post('edit_request'))
         {
             $this->form_validation->set_rules('side', 'Kridlo', 'trim');
             $this->form_validation->set_rules('room_no', 'Cislo ucebne', 'trim');
+            $this->form_validation->set_rules('capacity', 'Kapacita ucebne', 'trim');
 
             if ($this->form_validation->run() != false)
             {
@@ -146,7 +150,8 @@ class Classroom extends CI_Controller
     public function room_new()
     {
         $data = array(
-            'search' => $this->input->get('search')
+            'search' => $this->input->get('search'),
+            'accesses' => $this->access_model->accesslist_is_null()
         );
 
         if ($this->input->post('new_request'))
@@ -154,6 +159,7 @@ class Classroom extends CI_Controller
 
             $this->form_validation->set_rules('side', 'Kridlo', 'trim');
             $this->form_validation->set_rules('room_no', 'Cislo ucebne', 'trim');
+            $this->form_validation->set_rules('capacity', 'Kapacita ucebne', 'trim');
 
             if ($this->form_validation->run() != false)
             {
@@ -192,7 +198,6 @@ class Classroom extends CI_Controller
 
     public function access_delete($accessID)
     {
-        print_r($accessID);
         $this->access_model->access_delete($accessID);
         redirect('classroom/access/?search=' . $this->input->get('search'), 'refresh');
     }
@@ -287,7 +292,7 @@ class Classroom extends CI_Controller
 
         $data = array(
             'search' => $search,
-            'typeaccesses' => $typeaccess
+            'typeaccess' => $typeaccess
         );
 
         if ($this->input->post('edit_request'))
