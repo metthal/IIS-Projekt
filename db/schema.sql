@@ -91,12 +91,12 @@ CREATE TABLE Predmet (
 CREATE TABLE Akcia (
     akcia_ID INTEGER NOT NULL AUTO_INCREMENT,
     nazov VARCHAR(30) NOT NULL,
-    datum_rezervacie DATE NOT NULL,
+    datum_rezervacie TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     zaznam CHAR(1) DEFAULT 0,
     stream CHAR(1) DEFAULT 0,
     trvanie INTEGER NOT NULL,
-    datum_konania DATE NOT NULL,
-    predmet_ID INTEGER,
+    datum_konania TIMESTAMP NOT NULL,
+    predmet_ID INTEGER NOT NULL,
     uzivatel_ID INTEGER NOT NULL,
     -- Constraints
     PRIMARY KEY (akcia_ID),

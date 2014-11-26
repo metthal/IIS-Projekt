@@ -310,7 +310,7 @@ class Admin extends CI_Controller
                 $this->user_model->reset();
             }
             if ($this->input->post('reset_actions'))
-                $this->action_model->reset();
+                $this->event_model->reset();
 
             if ($this->input->post('reset_rooms'))
             {
@@ -320,7 +320,7 @@ class Admin extends CI_Controller
 
             if ($this->input->post('reset_db'))
             {
-                $this->action_model->reset();
+                $this->event_model->reset();
                 $this->class_model->reset();
                 $this->dep_model->reset();
                 $this->grade_model->reset();
@@ -443,8 +443,7 @@ class Admin extends CI_Controller
 
         $data = array(
             'search' => $search,
-            'grades' => $grades,
-            'deps' => $this->dep_model->deplist()
+            'grades' => $grades
         );
 
         $this->load->view('admin_grades_view', $data);
@@ -548,9 +547,7 @@ class Admin extends CI_Controller
 
         $data = array(
             'search' => $search,
-            'subjects' => $subjects,
-            'grades' => $this->grade_model->gradelist(),
-            'users' => $this->user_model->userlist()
+            'subjects' => $subjects
         );
 
         $this->load->view('admin_subjects_view', $data);
@@ -651,5 +648,3 @@ class Admin extends CI_Controller
         return true;
     }
 }
-
-?>

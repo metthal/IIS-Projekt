@@ -9,11 +9,12 @@ class Subject_model extends CI_Model
 
     public function subjectlist($filter = '')
     {
-        $this->db->select('*');
-        $this->db->from('Predmet');
-        $this->db->where('nazov_predmetu LIKE "' . $filter . '%"');
+        $query = 'SELECT p.*, r.nazov AS rocnik, u.login AS garant FROM Predmet p
+            INNER JOIN Rocnik r ON p.rocnik_ID = r.rocnik_ID
+            INNER JOIN Uzivatel u ON p.garant_ID = u.uzivatel_ID
+            WHERE p.nazov_predmetu LIKE "' . $filter . '%"';
 
-        return $this->db->get()->result();
+        return $this->db->query($query)->result();
     }
 
     public function add($subject_data)
@@ -30,14 +31,14 @@ class Subject_model extends CI_Model
 
     public function get($subjectID)
     {
-        $this->db->select('*');
-        $this->db->from('Predmet');
-        $this->db->where('predmet_ID', $subjectID);
-        $this->db->limit(1);
-        $query = $this->db->get();
-        if ($query->num_rows() == 1)
+        $query = 'SELECT p.*, r.nazov AS rocnik, u.login AS garant FROM Predmet p
+            INNER JOIN Rocnik r ON p.rocnik_ID = r.rocnik_ID
+            INNER JOIN Uzivatel u ON p.garant_ID = u.uzivatel_ID
+            WHERE p.predmet_ID = ' . $subjectID . ' LIMIT 1';
+        $result = $this->db->query($query);
+        if ($result->num_rows() == 1)
         {
-            $subject = $query->result();
+            $subject = $result->result();
             return $subject[0];
         }
 

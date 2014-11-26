@@ -9,11 +9,11 @@ class Grade_model extends CI_Model
 
     public function gradelist($filter = '')
     {
-        $this->db->select('*');
-        $this->db->from('Rocnik');
-        $this->db->where('nazov LIKE "' . $filter . '%"');
+        $query = 'SELECT r.*, o.nazov AS obor FROM Rocnik r
+                INNER JOIN Obor o ON r.obor_ID = o.obor_ID
+                WHERE r.nazov LIKE "' . $filter . '%"';
 
-        return $this->db->get()->result();
+        return $this->db->query($query)->result();
     }
 
     public function add($grade_data)
@@ -29,14 +29,13 @@ class Grade_model extends CI_Model
 
     public function get($gradeID)
     {
-        $this->db->select('*');
-        $this->db->from('Rocnik');
-        $this->db->where('rocnik_ID', $gradeID);
-        $this->db->limit(1);
-        $query = $this->db->get();
-        if ($query->num_rows() == 1)
+        $query = 'SELECT r.*, o.nazov AS obor FROM Rocnik r
+                INNER JOIN Obor o ON r.obor_ID = o.obor_ID
+                WHERE r.rocnik_ID = ' . $gradeID . ' LIMIT 1';
+        $result = $this->db->query($query);
+        if ($result->num_rows() == 1)
         {
-            $grade= $query->result();
+            $grade = $result->result();
             return $grade[0];
         }
 
