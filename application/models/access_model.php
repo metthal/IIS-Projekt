@@ -16,6 +16,15 @@ class Access_model extends CI_Model
         return $this->db->get()->result();
     }
 
+    public function accesslist_is_null($filter = '')
+    {
+        $this->db->select('prislusenstvo_ID, seriove_cislo, typ_ID, ucebna_ID');
+        $this->db->from('Prislusenstvo');
+        $this->db->where('seriove_cislo LIKE "' . $filter . '%"');
+        $this->db->where('ucebna_ID',NULL);
+
+        return $this->db->get()->result();
+    }
     public function access_get($accessID)
     {
         $this->db->select('*');

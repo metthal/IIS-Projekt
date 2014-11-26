@@ -32,7 +32,7 @@ class Room_model extends CI_Model
 
     public function roomlist($filter = '')
     {
-        $this->db->select('ucebna_ID, kridlo, cislo_ucebne');
+        $this->db->select('ucebna_ID, kridlo, cislo_ucebne,kapacita');
         $this->db->from('Ucebna');
         $this->db->where('cislo_ucebne LIKE "' . $filter . '%"');
 
@@ -43,15 +43,35 @@ class Room_model extends CI_Model
     {
         $insert_data = array(
             'cislo_ucebne' => $room_data['room_no'],
-            'kridlo' => $room_data['side']
+            'kridlo' => $room_data['side'],
+            'kapacita' => $room_data['capacity']
         );
 
         $this->db->insert('Ucebna', $insert_data);
+
+        $this->db->from('Ucebna');
+        $this->db->where('cislo_ucebne', $room_data['room_no']);
+        $this->db->where('kridlo', $room_data['side']);
+        $this->db->limit(1);
+        $query = $this->db->get();
+        $room = $query->result();
+
+        $this->db->from('Prislusenstvo');
+        foreach ($room_data['accesses'] as &$access)
+        {
+            $this->db->where('prislusenstvo_ID', $access);
+            $this->db->update('Prislusenstvo', array('ucebna_ID' => $room[0]->ucebna_ID));
+        }
     }
     public function room_delete($roomID)
     {
         $this->db->where('ucebna_ID', $roomID);
         $this->db->delete('Ucebna');
+
+        $this->db->from('Prislusenstvo');
+        $this->db->where('ucebna_ID', $roomID);
+        $this->db->update('Prislusenstvo', array('ucebna_ID' =>NULL));
+
     }
 
     public function schedules_for($roomID)
@@ -67,10 +87,25 @@ class Room_model extends CI_Model
     {
         $insert_data = array(
             'cislo_ucebne' => $room_data['room_no'],
-            'kridlo' => $room_data['side']
+            'kridlo' => $room_data['side'],
+            'kapacita' => $room_data['capacity']
         );
 
         $this->db->where('ucebna_ID', $roomID);
         $this->db->update('Ucebna', $insert_data);
+
+        $this->db->from('Ucebna');
+        $this->db->where('cislo_ucebne', $room_data['room_no']);
+        $this->db->where('kridlo', $room_data['side']);
+        $this->db->limit(1);
+        $query = $this->db->get();
+        $room = $query->result();
+
+        $this->db->from('Prislusenstvo');
+        foreach ($room_data['accesses'] as &$access)
+        {
+            $this->db->where('prislusenstvo_ID', $access);
+            $this->db->update('Prislusenstvo', array('ucebna_ID' => $room[0]->ucebna_ID));
+        }
     }
 }

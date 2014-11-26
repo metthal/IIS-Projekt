@@ -23,6 +23,7 @@ CREATE TABLE Ucebna (
     ucebna_ID INTEGER NOT NULL AUTO_INCREMENT,
     kridlo CHAR(1) NOT NULL,
     cislo_ucebne INTEGER NOT NULL,
+    kapacita INTEGER NOT NULL,
     -- Constraints
     PRIMARY KEY (ucebna_ID),
     UNIQUE (kridlo,cislo_ucebne)
