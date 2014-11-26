@@ -1,5 +1,6 @@
 <?php
 
+header('Content-Type: text/html; charset=utf-8');
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
@@ -200,8 +201,6 @@ if (defined('ENVIRONMENT'))
  *
  */
 require_once BASEPATH.'core/CodeIgniter.php';
-
-header('Content-Type: text/html; charset=' . config_item('charset'));
 
 /* End of file index.php */
 /* Location: ./index.php */
