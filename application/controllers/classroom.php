@@ -19,7 +19,8 @@ class Classroom extends CI_Controller
         $data = array(
             'title' => 'Učebne',
             'menu_items' => $menu_items,
-            'submenu_items' => $submenu_items
+            'submenu_items' => $submenu_items,
+            'menu_item_selected' => 'classroom'
         );
 
         $this->load->view('header', $data);

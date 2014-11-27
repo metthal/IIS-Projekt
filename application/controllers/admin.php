@@ -26,7 +26,8 @@ class Admin extends CI_Controller
         $data = array(
             'title' => 'Administrácia',
             'menu_items' => $menu_items,
-            'submenu_items' => $submenu_items
+            'submenu_items' => $submenu_items,
+            'menu_item_selected' => 'admin'
         );
 
         $this->load->view('header', $data);
@@ -137,6 +138,7 @@ class Admin extends CI_Controller
         }
 
         $data = array(
+            'subtitle' => 'Užívatelia',
             'search' => $search,
             'users' => $users
         );
@@ -151,6 +153,7 @@ class Admin extends CI_Controller
             redirect('admin/users/?search=' . $search, 'refresh');
 
         $data = array(
+            'subtitle' => 'Upraviť užívateľa',
             'search' => $search,
             'user' => $user
         );
@@ -233,6 +236,7 @@ class Admin extends CI_Controller
     public function user_new()
     {
         $data = array(
+            'subtitle' => 'Pridať užívateľa',
             'search' => $this->input->get('search')
         );
 

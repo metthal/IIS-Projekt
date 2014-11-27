@@ -20,7 +20,8 @@ class Profil extends CI_Controller
         $data = array(
             'title' => 'Profil',
             'menu_items' => $menu_items,
-            'submenu_items' => $submenu_items
+            'submenu_items' => $submenu_items,
+            'menu_item_selected' => 'profil'
         );
 
         $this->load->view('header', $data);

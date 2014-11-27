@@ -17,7 +17,8 @@ class Event extends CI_Controller
 
         $data = array(
             'title' => 'Akcie',
-            'menu_items' => $menu_items
+            'menu_items' => $menu_items,
+            'menu_item_selected' => 'event'
         );
 
         $this->load->view('header', $data);

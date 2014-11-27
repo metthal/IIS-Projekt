@@ -74,7 +74,7 @@ class User_model extends CI_Model
     {
         $insert_data = array(
             'login' => $user_data['login'],
-            'heslo' => $user_data['heslo'],
+            'heslo' => $user_data['password'],
             'meno' => $user_data['name'],
             'priezvisko' => $user_data['surname'],
             'mail' => $user_data['mail']

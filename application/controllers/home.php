@@ -18,7 +18,8 @@ class Home extends CI_Controller
 
         $data = array(
             'title' => 'Home',
-            'menu_items' => $menu_items
+            'menu_items' => $menu_items,
+            'menu_item_selected' => 'home'
         );
         $this->load->view('header', $data);
         $this->load->view('menu', $data);
