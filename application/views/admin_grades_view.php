@@ -1,11 +1,23 @@
+<div class="content">
+<div class="content_wrapper">
+<div class="content_header">
+<h1><?php echo $subtitle; ?></h1>
 <a href="<?php echo site_url(), 'admin/grade/new/?search=', $search; ?>">Pridať ročník</a><br>
 
-<form method="get" action="<?php echo site_url(); ?>admin/grade/">
+<form class="search_form" method="get" action="<?php echo site_url(); ?>admin/grade/">
     <input type="text" name="search" value="<?php echo $search ?>">
     <input type="submit" value="Hľadať"><br>
 </form>
+</div>
 
-<table>
+<table class="content_table">
+<thead>
+    <th>Názov</th>
+    <th>Začiatok štúdia</th>
+    <th>Obor</th>
+    <th>Úpravy</th>
+</thead>
+<tbody class="content_table_body">
 <?php
 
 foreach ($grades as &$grade)
@@ -16,9 +28,13 @@ foreach ($grades as &$grade)
     echo '<td>', $grade->obor, '</td>', PHP_EOL;
     $edit_url = site_url() . 'admin/grade/edit/' . $grade->rocnik_ID . '/?search=' . $search;
     $delete_url = site_url() . 'admin/grade/delete/' . $grade->rocnik_ID . '/?search=' . $search;
-    echo '<td><a href="', $edit_url, '">E</a> <a href="', $delete_url, '">X</a></td>', PHP_EOL;
+    echo '<td class="last_field"><a href="', $edit_url, '">✎</a> <a href="', $delete_url, '">❌</a></td>', PHP_EOL;
     echo '</tr>', PHP_EOL;
 }
 
 ?>
+</tbody>
 </table>
+
+</div>
+</div>

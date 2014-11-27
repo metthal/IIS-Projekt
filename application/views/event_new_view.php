@@ -1,47 +1,81 @@
+<div class="content">
+<div class="content_wrapper">
+<h1><?php echo $subtitle; ?></h1>
 <?php echo validation_errors(); ?>
 
-<?php echo form_open('event/new/?search=' . $search) ?>
-    Názov:<input type="text" name="name" value="<?php echo set_value('name'); ?>"><br>
-    Predmet:<select name="subject">
-<?php
-
-foreach ($subjects as &$subject)
-{
-    echo '<option value="', $subject->predmet_ID, '">', $subject->nazov_predmetu, '</option>', PHP_EOL;
-}
-
-?>
-    </select><br>
-    Dátum konania:<input type="text" name="date" value="<?php echo set_value('date'); ?>">
-    o <input type="text" name="hour" value="<?php echo set_value('hour'); ?>"><br>
-    Trvanie:<input type="text" name="duration" value="<?php echo set_value('duration'); ?>"><br>
-    <input type="hidden" name="user" value="<?php echo login_data('id'); ?>">
-    <input type="hidden" name="record" value="0">
-    Záznam:<input type="checkbox" name="record" value="1"><br>
-    <input type="hidden" name="stream" value="0">
-    Stream:<input type="checkbox" name="stream" value="1"><br>
-    <div id="rooms">
-        Koná sa v: <button onclick="newSchedule(); return false;">+ Pridať</button><br>
-        <div class="room">
-            <select name="rooms[]">
-<?php
-
-foreach ($rooms as &$room)
-{
-    echo '<option value="', $room->ucebna_ID, '">', $room->kridlo, $room->cislo_ucebne, '</option>', PHP_EOL;
-}
-
-?>
-            </select>
-            <button id="0" onclick="delSchedule(0); return false;">X</button>
-        </div>
-    </div>
-    <input type="submit" name="new_request" value="Uložiť">
-</form>
 <form style="display: inline;" action="<?php echo site_url(), 'event/'; ?>">
     <input type="hidden" name="search" value="<?php echo $search; ?>">
-    <input type="submit" value="Späť">
-</form><br>
+    <input type="submit" value="< Späť">
+</form>
+
+<table class="form_table">
+<?php echo form_open('event/new/?search=' . $search) ?>
+    <input type="hidden" name="user" value="<?php echo login_data('id'); ?>">
+    <tr class="form_table_row">
+        <td>Názov:</td>
+        <td><input type="text" name="name" value="<?php echo set_value('name'); ?>"></td>
+    </tr>
+    <tr class="form_table_row">
+        <td>Predmet:</td>
+        <td>
+            <select name="subject">
+                <?php
+
+                foreach ($subjects as &$subject)
+                {
+                    echo '<option value="', $subject->predmet_ID, '">', $subject->nazov_predmetu, '</option>', PHP_EOL;
+                }
+
+                ?>
+            </select>
+        </td>
+    </tr>
+    <tr class="form_table_row">
+        <td>Dátum konania:</td>
+        <td><input type="text" name="date" value="<?php echo set_value('date'); ?>">
+            o <input type="text" name="hour" value="<?php echo set_value('hour'); ?>"></td>
+    </tr>
+    <tr class="form_table_row">
+        <td>Trvanie:</td>
+        <td><input type="text" name="duration" value="<?php echo set_value('duration'); ?>"></td>
+    </tr>
+    <input type="hidden" name="record" value="0">
+    <tr class="form_table_row">
+        <td>Záznam:</td>
+        <td><input type="checkbox" name="record" value="1"></td>
+    </tr>
+    <input type="hidden" name="stream" value="0">
+    <tr class="form_table_row">
+        <td>Stream:</td>
+        <td><input type="checkbox" name="stream" value="1"></td>
+    </tr>
+    <tr class="form_table_row">
+            <td>Koná sa v:</td>
+            <td><button onclick="newSchedule(); return false;">+ Pridať</button></td>
+        </div>
+    </tr>
+    <tr class="form_table_row">
+        <td colspan="2" style="text-align: center">
+            <div id="rooms">
+                <div class="room">
+                    <select name="rooms[]">
+                        <?php
+
+                        foreach ($rooms as &$room)
+                        {
+                            echo '<option value="', $room->ucebna_ID, '">', $room->kridlo, $room->cislo_ucebne, '</option>', PHP_EOL;
+                        }
+
+                        ?>
+                    </select>
+                    <button id="0" onclick="delSchedule(0); return false;">❌</button>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr><td colspan="2"><input type="submit" name="new_request" value="Uložiť"></td></tr>
+</form>
+</table>
 
 <script>
 var count = 1;
@@ -71,3 +105,6 @@ function delSchedule(index)
     del_room.parentNode.parentNode.removeChild(del_room.parentNode);
 }
 </script>
+
+</div>
+</div>

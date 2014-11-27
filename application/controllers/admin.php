@@ -5,6 +5,8 @@ class Admin extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+
+        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
     }
 
     public function index($action = 'users', $subaction = '')
@@ -333,7 +335,11 @@ class Admin extends CI_Controller
             }
         }
 
-        $this->load->view('admin_reset_view');
+        $data = array(
+            'subtitle' => 'Obnova'
+        );
+
+        $this->load->view('admin_reset_view', $data);
     }
 
     public function deps()
@@ -350,6 +356,7 @@ class Admin extends CI_Controller
         }
 
         $data = array(
+            'subtitle' => 'Obory',
             'search' => $search,
             'deps' => $deps
         );
@@ -360,6 +367,7 @@ class Admin extends CI_Controller
     public function dep_new()
     {
         $data = array(
+            'subtitle' => 'Pridať obor',
             'search' => $this->input->get('search')
         );
 
@@ -386,6 +394,7 @@ class Admin extends CI_Controller
             redirect('admin/dep/?search=' . $search, 'refresh');
 
         $data = array(
+            'subtitle' => 'Upraviť obor',
             'search' => $search,
             'dep' => $dep
         );
@@ -446,6 +455,7 @@ class Admin extends CI_Controller
         }
 
         $data = array(
+            'subtitle' => 'Ročníky',
             'search' => $search,
             'grades' => $grades
         );
@@ -456,6 +466,7 @@ class Admin extends CI_Controller
     public function grade_new()
     {
         $data = array(
+            'subtitle' => 'Pridať ročník',
             'search' => $this->input->get('search'),
             'deps' => $this->dep_model->deplist()
         );
@@ -483,6 +494,7 @@ class Admin extends CI_Controller
             redirect('admin/grade/?search=' . $search, 'refresh');
 
         $data = array(
+            'subtitle' => 'Upraviť ročník',
             'search' => $search,
             'grade' => $grade,
             'deps' => $this->dep_model->deplist()
@@ -550,6 +562,7 @@ class Admin extends CI_Controller
         }
 
         $data = array(
+            'subtitle' => 'Predmety',
             'search' => $search,
             'subjects' => $subjects
         );
@@ -560,6 +573,7 @@ class Admin extends CI_Controller
     public function subject_new()
     {
         $data = array(
+            'subtitle' => 'Pridať predmet',
             'search' => $this->input->get('search'),
             'grades' => $this->grade_model->gradelist(),
             'users' => $this->user_model->userlist()
@@ -590,6 +604,7 @@ class Admin extends CI_Controller
             redirect('admin/subject/?search=' . $search, 'refresh');
 
         $data = array(
+            'subtitle' => 'Upraviť predmet',
             'search' => $search,
             'subject' => $subject,
             'grades' => $this->grade_model->gradelist(),

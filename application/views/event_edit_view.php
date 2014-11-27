@@ -1,57 +1,89 @@
-<?php echo validation_errors(); ?>
-
-<?php echo form_open('event/edit/' . $event->akcia_ID . '?search=' . $search) ?>
-    Názov:<input type="text" name="name" value="<?php echo $event->nazov; ?>"><br>
-    Predmet:<select name="subject">
-<?php
-
-foreach ($subjects as &$subject)
-{
-    echo '<option ';
-    if ($subject->predmet_ID == $event->predmet_ID)
-        echo 'selected="selected"';
-    echo 'value="', $subject->predmet_ID, '">', $subject->nazov_predmetu, '</option>', PHP_EOL;
-}
-
-?>
-    </select><br>
-    Dátum konania:<input type="text" name="date" value="<?php echo date('Y-m-d', strtotime($event->datum_konania)); ?>">
-    o <input type="text" name="hour" value="<?php echo date('G', strtotime($event->datum_konania)); ?>"><br>
-    Trvanie:<input type="text" name="duration" value="<?php echo $event->trvanie; ?>"><br>
-    <input type="hidden" name="user" value="<?php echo login_data('id'); ?>">
-    <input type="hidden" name="record" value="0">
-    Záznam:<input type="checkbox" name="record" value="1" <?php if ($event->zaznam) echo 'checked'; ?>><br>
-    <input type="hidden" name="stream" value="0">
-    Stream:<input type="checkbox" name="stream" value="1" <?php if ($event->stream) echo 'checked'; ?>><br>
-    <div id="rooms">
-    Koná sa v: <button onclick="newSchedule(); return false;">+ Pridať</button><br>
-<?php
-
-    $counter = 0;
-    foreach ($schedules as &$schedule)
-    {
-        echo '<div class="room">', PHP_EOL;
-        echo '<select name="rooms[]">', PHP_EOL;
-        foreach ($rooms as &$room)
-        {
-            echo '<option value="', $room->ucebna_ID, '"';
-            if ($room->ucebna_ID == $schedule->ucebna_ID)
-                echo ' selected="selected"';
-            echo '>', $room->kridlo, $room->cislo_ucebne, '</option>', PHP_EOL;
-        }
-        echo '</select>';
-        echo '<button id="', $counter, '" onclick="delSchedule(', $counter, '); return false;">X</button>', PHP_EOL;
-        echo '</div>', PHP_EOL;
-        $counter++;
-    }
-?>
-    </div>
-    <input type="submit" name="edit_request" value="Uložiť">
-</form>
+<div class="content">
+<div class="content_wrapper">
+<h1><?php echo $subtitle; ?></h1>
 <form style="display: inline;" action="<?php echo site_url(), 'event/'; ?>">
     <input type="hidden" name="search" value="<?php echo $search; ?>">
-    <input type="submit" value="Späť">
-</form><br>
+    <input type="submit" value="< Späť">
+</form>
+<?php echo validation_errors(); ?>
+
+<table class="form_table">
+<?php echo form_open('event/edit/' . $event->akcia_ID . '?search=' . $search) ?>
+    <input type="hidden" name="user" value="<?php echo login_data('id'); ?>">
+    <tr class="form_table_row">
+        <td>Názov:</td>
+        <td><input type="text" name="name" value="<?php echo $event->nazov; ?>"></td>
+    </tr>
+    <tr class="form_table_row">
+        <td>Predmet:</td>
+        <td>
+            <select name="subject">
+                <?php
+
+                foreach ($subjects as &$subject)
+                {
+                    echo '<option ';
+                    if ($subject->predmet_ID == $event->predmet_ID)
+                        echo 'selected="selected"';
+                    echo 'value="', $subject->predmet_ID, '">', $subject->nazov_predmetu, '</option>', PHP_EOL;
+                }
+
+                ?>
+            </select>
+        </td>
+    </tr>
+    <tr class="form_table_row">
+        <td>Dátum konania:</td>
+        <td><input type="text" name="date" value="<?php echo date('Y-m-d', strtotime($event->datum_konania)); ?>">
+            o <input type="text" name="hour" value="<?php echo date('G', strtotime($event->datum_konania)); ?>"></td>
+    </tr>
+    <tr class="form_table_row">
+        <td>Trvanie:</td>
+        <td><input type="text" name="duration" value="<?php echo $event->trvanie; ?>"></td>
+    </tr>
+    <input type="hidden" name="record" value="0">
+    <tr class="form_table_row">
+        <td>Záznam:</td>
+        <td><input type="checkbox" name="record" value="1" <?php if ($event->zaznam) echo 'checked'; ?>></td>
+    </tr>
+    <input type="hidden" name="stream" value="0">
+    <tr class="form_table_row">
+        <td>Stream:</td>
+        <td><input type="checkbox" name="stream" value="1" <?php if ($event->stream) echo 'checked'; ?>></td>
+    </tr>
+    <tr class="form_table_row">
+        <td>Koná sa v:</td>
+        <td><button onclick="newSchedule(); return false;">+ Pridať</button></td>
+    </tr>
+    <tr class="form_table_row">
+        <td colspan="2" style="text-align: center">
+            <div id="rooms">
+                <?php
+
+                    $counter = 0;
+                    foreach ($schedules as &$schedule)
+                    {
+                        echo '<div class="room">', PHP_EOL;
+                        echo '<select name="rooms[]">', PHP_EOL;
+                        foreach ($rooms as &$room)
+                        {
+                            echo '<option value="', $room->ucebna_ID, '"';
+                            if ($room->ucebna_ID == $schedule->ucebna_ID)
+                                echo ' selected="selected"';
+                            echo '>', $room->kridlo, $room->cislo_ucebne, '</option>', PHP_EOL;
+                        }
+                        echo '</select>', PHP_EOL;
+                        echo '<button id="', $counter, '" onclick="delSchedule(', $counter, '); return false;">❌</button>', PHP_EOL;
+                        echo '</div>', PHP_EOL;
+                        $counter++;
+                    }
+                ?>
+            </div>
+        </td>
+    </tr>
+    <tr><td colspan="2"><input type="submit" name="edit_request" value="Uložiť"></td></tr>
+</form>
+</table>
 
 <script>
 var count = <?php echo count($schedules); ?>;
@@ -82,3 +114,5 @@ function delSchedule(index)
 }
 </script>
 
+</div>
+</div>

@@ -253,3 +253,59 @@ a:hover
     border: none;
     width: auto;
 }
+
+#timetable
+{
+    width: 100%;
+    padding-top: 10px;
+}
+
+.timetable_table
+{
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-color: #c9c9c9;
+    border-width: 1px;
+    border-style: solid;
+    color: white;
+}
+
+.timetable_table tr, .timetable_table td
+{
+    border-collapse: collapse;
+    border-color: #c9c9c9;
+    border-width: 1px;
+    border-style: solid;
+    text-align: center;
+    font-weight: bold;
+}
+
+.timetable_table th
+{
+    background-color: #1131bf;
+    font-weight: normal;
+    border-collapse: collapse;
+    border-color: #1131bf;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.timetable_table .reserved
+{
+    background-color: #4969f5;
+}
+
+.timetable_table .no_data
+{
+    color: #828282;
+}
+
+.error
+{
+    font-weight: bold;
+    color: red;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 5px;
+}

@@ -14,6 +14,7 @@ class Timetable extends CI_Controller
 
         $data = array(
             'title' => 'Rozvrh',
+            'subtitle' => 'Rozvrh',
             'menu_items' => $this->menu->load('menu_main', $this->user_model->privileges(login_data('id'))),
             'rooms' => $this->room_model->roomlist(),
             'menu_item_selected' => 'timetable'

@@ -5,6 +5,8 @@ class Event extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+
+        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
     }
 
     public function index($subaction = '')
@@ -58,6 +60,7 @@ class Event extends CI_Controller
         }
 
         $data = array(
+            'subtitle' => 'Akcie',
             'search' => $search,
             'events' => $events,
             'can_create' => ($this->user_model->privileges(login_data('id')) == 0 ? false : true)
@@ -69,6 +72,7 @@ class Event extends CI_Controller
     public function event_new()
     {
         $data = array(
+            'subtitle' => 'Pridať akciu',
             'search' => $this->input->get('search'),
             'subjects' => $this->subject_model->subjectlist(),
             'rooms' => $this->room_model->roomlist()
@@ -105,6 +109,7 @@ class Event extends CI_Controller
             redirect('admin/subject/?search=' . $search, 'refresh');
 
         $data = array(
+            'subtitle' => 'Upraviť akciu',
             'search' => $search,
             'event' => $event,
             'subjects' => $this->subject_model->subjectlist(),
