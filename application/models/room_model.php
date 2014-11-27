@@ -108,4 +108,13 @@ class Room_model extends CI_Model
             $this->db->update('Prislusenstvo', array('ucebna_ID' => $room[0]->ucebna_ID));
         }
     }
+
+    public function rooms_for($roomID)
+    {
+        $this->db->select('*');
+        $this->db->from('Ucebna');
+        $this->db->where('ucebna_ID', $roomID);
+
+        return $this->db->get()->result();
+    }
 }

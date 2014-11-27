@@ -114,7 +114,7 @@ class Classroom extends CI_Controller
     public function room_delete($roomID)
     {
         $this->room_model->room_delete($roomID);
-        //redirect('classroom/rooms/?search=' . $this->input->get('search'), 'refresh');
+        redirect('classroom/rooms/?search=' . $this->input->get('search'), 'refresh');
     }
 
     public function room_edit($roomID)
@@ -127,7 +127,8 @@ class Classroom extends CI_Controller
         $data = array(
             'search' => $search,
             'room' => $room,
-            'accesses' => $this->access_model->accesslist()
+            'accesses' => $this->access_model->accesslist(),
+            'rooms' => $this->room_model->rooms_for($roomID)
         );
 
         if ($this->input->post('edit_request'))
