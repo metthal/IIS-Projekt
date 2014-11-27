@@ -74,11 +74,11 @@ class Room_model extends CI_Model
 
     }
 
-    public function schedules_for($roomID)
+    public function schedules_for($roomID, $date)
     {
         $query = 'SELECT k.ucebna_ID, k.akcia_ID, a.nazov, a.datum_konania, a.trvanie FROM Konanie_akcie k
             INNER JOIN Akcia a ON k.akcia_ID = a.akcia_ID
-            WHERE k.ucebna_ID =' . $roomID;
+            WHERE k.ucebna_ID =' . $roomID . ' AND a.datum_konania LIKE "' . $date . '%"';
 
         return $this->db->query($query)->result();
     }

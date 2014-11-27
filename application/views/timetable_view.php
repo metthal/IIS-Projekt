@@ -1,3 +1,10 @@
+<?php
+
+$today = date('Y-m-d');
+echo '<button onclick="prevDay()">&larr;</button>', PHP_EOL;
+echo '<span id="currentDate">', $today, '</span>', PHP_EOL;
+echo '<button onclick="nextDay()">&rarr;</button><br>', PHP_EOL;
+?>
 Učebňa:
 <select id="rooms" onchange="getTimetable()">
 <?php
@@ -13,7 +20,7 @@ foreach ($rooms as &$room)
 </div>
 
 <script>
-currentRoomID = <?php if (count($rooms) > 0) echo $rooms[0]->ucebna_ID; else echo '0'; ?>;
+var currentDate = new Date();
 
 function createXmlHttpRequestObject()
 {
@@ -40,11 +47,37 @@ function createXmlHttpRequestObject()
         return xmlHttp;
 }
 
+function dateFormat(dateObj)
+{
+    var dateStr = dateObj.getFullYear() + "-";
+    if (dateObj.getMonth() + 1 < 10)
+        dateStr += "0";
+    dateStr += (dateObj.getMonth() + 1) + "-";
+    if (dateObj.getDate() < 10)
+        dateStr += "0";
+    dateStr += dateObj.getDate();
+    return dateStr;
+}
+
+function prevDay()
+{
+    currentDate.setDate(currentDate.getDate() - 1);
+    document.getElementById("currentDate").innerHTML = dateFormat(currentDate);
+    getTimetable();
+}
+
+function nextDay()
+{
+    currentDate.setDate(currentDate.getDate() + 1);
+    document.getElementById("currentDate").innerHTML = dateFormat(currentDate);
+    getTimetable();
+}
+
 function getTimetable()
 {
     var roomSelect = document.getElementById("rooms");
     var xmlHttp = createXmlHttpRequestObject();
-    xmlHttp.open("GET", "<?php echo site_url(); ?>timetable/get/" + roomSelect.options[roomSelect.selectedIndex].value, true);
+    xmlHttp.open("GET", "<?php echo site_url(); ?>timetable/get/" + roomSelect.options[roomSelect.selectedIndex].value + "/" + dateFormat(currentDate), true);
     xmlHttp.onreadystatechange = function()
     {
         if ((xmlHttp.readyState==4) && (xmlHttp.status==200))

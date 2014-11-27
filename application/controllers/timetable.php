@@ -24,12 +24,12 @@ class Timetable extends CI_Controller
         $this->load->view('footer');
     }
 
-    public function get($roomID)
+    public function get($roomID, $date)
     {
         if (!check_login())
             return;
 
-        $events = $this->room_model->schedules_for($roomID);
+        $events = $this->room_model->schedules_for($roomID, $date);
         $data = array(
             'events' => $events
         );
