@@ -10,17 +10,7 @@
 
 foreach ($accesss as &$access)
 {
-    echo '<tr>', PHP_EOL;
-    echo '<td>';
-    foreach ($typeaccesses as &$typeaccess)
-    {
-        if ($typeaccess->typ_prislusenstva_ID == $access->typ_ID)
-        {
-            echo $typeaccess->nazov_typu;
-            break;
-        }
-    }
-    echo '</td>', PHP_EOL;
+    echo '<td>', $this->typeaccess_model->typeaccess_name($access->typ_ID)->nazov_typu, '</td>', PHP_EOL;
     echo '<td>', $access->seriove_cislo, '</td>', PHP_EOL;
     echo '<td>', $access->ucebna_ID, '</td>', PHP_EOL;
     $edit_url = site_url() . 'classroom/access/edit/' . $access->prislusenstvo_ID . '/?search=' . $search;

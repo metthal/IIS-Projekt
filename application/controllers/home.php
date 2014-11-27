@@ -23,6 +23,7 @@ class Home extends CI_Controller
         );
         $this->load->view('header', $data);
         $this->load->view('menu', $data);
+        $this->load->view('home_view', $data);
         $this->load->view('footer');
     }
 }
