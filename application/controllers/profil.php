@@ -7,7 +7,7 @@ class Profil extends CI_Controller
         parent::__construct();
     }
 
-    public function index($action = 'change_email', $subaction = '')
+    public function index($action = 'change_passwd', $subaction = '')
     {
         if (!check_login())
             redirect('login', 'refresh');
@@ -19,6 +19,7 @@ class Profil extends CI_Controller
 
         $data = array(
             'title' => 'Profil',
+            'subtitle' => 'Zmena hesla',
             'menu_items' => $menu_items,
             'submenu_items' => $submenu_items,
             'menu_item_selected' => 'profil'
@@ -38,6 +39,10 @@ class Profil extends CI_Controller
 
     public function change_passwd()
     {
+        $view_data = array(
+            'subtitle' => 'Zmena hesla'
+        );
+
         if($this->input->post('change_passwd_request'))
         {
             $this->form_validation->set_rules('old_passwd', 'Staré heslo', 'trim|required');
@@ -60,17 +65,25 @@ class Profil extends CI_Controller
                 $this->form_validation->set_message('change_passwd', 'Nove heslo nieje zhodne!');
 
         }
-        $this->load->view('profil_change_passwd_view');
+        $this->load->view('profil_change_passwd_view',$view_data);
     }
 
     public function change_email()
     {
+        $view_data = array(
+            'subtitle' => 'Zmena e-mailu'
+        );
+
         if($this->input->post('change_email_request'))
         {
             $this->form_validation->set_rules('confirm_passwd', 'Heslo', 'trim|required');
             $this->form_validation->set_rules('email', 'E-mail', 'required|callback_change_email_request');
 
             $this->form_validation->run();
+
+            $data = array(
+                'subtitle' => 'Zmena e-mailu'
+            );
 
             $user = $this->user_model->get(login_data('id'));
 
@@ -84,7 +97,7 @@ class Profil extends CI_Controller
             else
                 $this->form_validation->set_message('change_email', 'Zle heslo');
         }
-        $this->load->view('profil_change_email_view');
+        $this->load->view('profil_change_email_view',$view_data);
     }
 }
 

@@ -18,6 +18,7 @@ class Home extends CI_Controller
 
         $data = array(
             'title' => 'Home',
+            'subtitle' =>  'Novinky',
             'menu_items' => $menu_items,
             'menu_item_selected' => 'home'
         );

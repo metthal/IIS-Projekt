@@ -1,9 +1,26 @@
+<div class="content">
+<div class="content_wrapper">
+<div class="content_header">
+<h1><?php echo $subtitle; ?></h1>
 <?php
     if ($can_create)
-        echo '<a href="', site_url(), 'classroom/rooms/new/?search=', $search , '">Pridať učebňu</a><br>';
+        echo '<a href="', site_url(), 'classroom/rooms/new/?search=', $search , '">Pridať učebňu</a>';
 ?>
+<form class="search_form" method="get" action="<?php echo site_url(); ?>classroom/rooms/">
+    <input type="text" name="search" value="<?php echo $search ?>">
+    <input type="submit" value="Hľadať">
+</form>
+</div>
 
-<table>
+<table class="content_table">
+<thead>
+<th>Krídlo</th>
+<th>číslo učebne</th>
+<th>Kapacita učebne</th>
+<th>Typ príslušenstva, počet kusov</th>
+<th>Úpravy</th>
+</thead>
+<tbody class="content_table_body">
 <?php
 
 foreach ($rooms as &$room)
@@ -17,7 +34,7 @@ foreach ($rooms as &$room)
             $access_name = $this->typeaccess_model->typeaccess_name($access->typ_ID);
             if (!in_array($access_name->nazov_typu,$array_access_name))
             {
-                $item_to_push = $access_name->nazov_typu . " " . $this->typeaccess_model->typeaccess_get_type_count($access_name->nazov_typu);
+                $item_to_push = $access_name->nazov_typu . " (" . $this->typeaccess_model->typeaccess_get_type_count($access_name->nazov_typu) . " ks),";
                 array_push($array_access_name,$item_to_push);
             }
         }
@@ -32,9 +49,12 @@ foreach ($rooms as &$room)
     echo '<td>', $array, '</td>', PHP_EOL;
     $edit_url = site_url() . 'classroom/rooms/edit/' . $room->ucebna_ID . '/?search=' . $search;
     $delete_url = site_url() . 'classroom/rooms/delete/' . $room->ucebna_ID . '/?search=' . $search;
-    echo '<td><a href="', $edit_url, '">E</a> <a href="', $delete_url, '">X</a></td>', PHP_EOL;
+    echo '<td class="last_field"><a href="', $edit_url, '">✎</a> <a href="', $delete_url, '">&#x274C</a></td>', PHP_EOL;
     echo '</tr>', PHP_EOL;
 }
 
 ?>
+</tbody>
 </table>
+</div>
+</div>

@@ -104,6 +104,7 @@ class Classroom extends CI_Controller
 
         $accesses = $this->access_model->accesslist();
         $data = array(
+            'subtitle' => 'Učebne',
             'search' => $search,
             'rooms' => $rooms,
             'accesses' => $accesses,
@@ -126,6 +127,7 @@ class Classroom extends CI_Controller
             redirect('classroom/rooms/?search=' . $search, 'refresh');
 
         $data = array(
+            'subtitle' => 'Upraviť učebňu',
             'search' => $search,
             'room' => $room,
             'accesses' => $this->access_model->accesslist(),
@@ -152,6 +154,7 @@ class Classroom extends CI_Controller
     public function room_new()
     {
         $data = array(
+            'subtitle' => 'Pridať učebňu',
             'search' => $this->input->get('search'),
             'accesses' => $this->access_model->accesslist_is_null()
         );
@@ -189,6 +192,7 @@ class Classroom extends CI_Controller
 
         $typeaccesses = $this->typeaccess_model->typeaccesslist();
         $data = array(
+            'subtitle' => 'Príslušenstvo',
             'search' => $search,
             'accesss' => $access,
             'typeaccesses' => $typeaccesses,
@@ -212,6 +216,7 @@ class Classroom extends CI_Controller
             redirect('classroom/access/?search=' . $search, 'refresh');
 
         $data = array(
+            'subtitle' => 'Upraviť príslušenstvo',
             'search' => $search,
             'access' => $access,
             'typeaccesses' => $this->typeaccess_model->typeaccesslist()
@@ -236,6 +241,7 @@ class Classroom extends CI_Controller
     public function access_new()
     {
         $data = array(
+            'subtitle' => 'Pridať príslušenstvo',
             'search' => $this->input->get('search'),
             'typeaccesses' => $this->typeaccess_model->typeaccesslist()
         );
@@ -271,6 +277,7 @@ class Classroom extends CI_Controller
         }
 
         $data = array(
+            'subtitle' => 'Typ príslušenstva',
             'search' => $search,
             'typeaccesses' => $typeaccess,
             'can_create' => ($this->user_model->privileges(login_data('id')) <= 1 ? false : true)
@@ -293,6 +300,7 @@ class Classroom extends CI_Controller
             redirect('classroom/typeaccess/?search=' . $search, 'refresh');
 
         $data = array(
+            'subtitle' => 'Upraviť príslušenstvo',
             'search' => $search,
             'typeaccess' => $typeaccess
         );
@@ -315,6 +323,7 @@ class Classroom extends CI_Controller
     public function typeaccess_new()
     {
         $data = array(
+            'subtitle' => 'Pridať príslušenstvo',
             'search' => $this->input->get('search')
         );
 
