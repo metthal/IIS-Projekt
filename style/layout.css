@@ -279,6 +279,7 @@ a:hover
     border-style: solid;
     text-align: center;
     font-weight: bold;
+    height: 30px;
 }
 
 .timetable_table th
@@ -299,6 +300,50 @@ a:hover
 .timetable_table .no_data
 {
     color: #828282;
+}
+
+.timetable_table a
+{
+    color: white;
+    border-bottom: 1px dotted white;
+    position: relative;
+}
+
+.timetable_table a:hover
+{
+    text-decoration: none;
+}
+
+.timetable_table a:hover:after
+{
+    background-color: rgba(0, 0, 0, 0.9);
+    content: attr(info);
+    color: white;
+    width: 200px;
+    position: absolute;
+    left: 10%;
+    z-index: 98;
+    bottom: 26px;
+    white-space: pre;
+    font-size: 14px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.timetable_table a:hover:before
+{
+    border: solid;
+    border-color: rgba(0, 0, 0, 0.9) transparent;
+    border-width: 6px 6px 0 6px;
+    bottom: 20px;
+    content: "";
+    left: 30%;
+    position: absolute;
+    z-index: 99;
 }
 
 .error

@@ -76,8 +76,14 @@ class Room_model extends CI_Model
 
     public function schedules_for($roomID, $date)
     {
-        $query = 'SELECT k.ucebna_ID, k.akcia_ID, a.nazov, a.datum_konania, a.trvanie FROM Konanie_akcie k
+        $query = 'SELECT k.ucebna_ID, k.akcia_ID, a.nazov, a.datum_konania, a.trvanie,
+            CONCAT(u.meno, \' \', u.priezvisko) AS garant, p.nazov_predmetu AS predmet, r.nazov AS rocnik, o.nazov AS obor
+            FROM Konanie_akcie k
             INNER JOIN Akcia a ON k.akcia_ID = a.akcia_ID
+            INNER JOIN Predmet p ON a.predmet_ID = p.predmet_ID
+            INNER JOIN Uzivatel u ON p.garant_ID = u.uzivatel_ID
+            INNER JOIN Rocnik r ON p.rocnik_ID = r.rocnik_ID
+            INNER JOIN Obor o ON r.obor_ID = o.obor_ID
             WHERE k.ucebna_ID =' . $roomID . ' AND a.datum_konania LIKE "' . $date . '%"';
 
         return $this->db->query($query)->result();

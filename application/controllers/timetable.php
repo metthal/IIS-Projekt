@@ -53,7 +53,15 @@ class Timetable extends CI_Controller
                     // there is free place in timetable, insert our event
                     if ($j == min($start_hour + $duration, 24))
                     {
-                        $timetable[$i][$start_hour] = array($duration, $event->nazov);
+                        $timetable[$i][$start_hour] = array(
+                            $duration,
+                            $event->nazov,
+                            $event->akcia_ID,
+                            $event->predmet,
+                            $event->rocnik,
+                            $event->obor,
+                            $event->garant
+                        );
                         for ($j = $start_hour + 1; $j < min($start_hour + $duration, 24); $j++)
                             $timetable[$i][$j] = 1;
 
@@ -66,7 +74,15 @@ class Timetable extends CI_Controller
                 if ($i == $cols)
                     $timetable = $timetable + array($i => array_fill(0, 24, 0));
 
-                $timetable[$i][$start_hour] = array($duration, $event->nazov);
+                $timetable[$i][$start_hour] = array(
+                    $duration,
+                    $event->nazov,
+                    $event->akcia_ID,
+                    $event->predmet,
+                    $event->rocnik,
+                    $event->obor,
+                    $event->garant
+                );
                 for ($j = $start_hour + 1; $j < min($start_hour + $duration, 24); $j++)
                     $timetable[$i][$j] = 1;
             }

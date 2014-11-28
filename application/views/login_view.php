@@ -3,7 +3,7 @@
 <div class="content_wrapper">
 <?php echo validation_errors(); ?>
 
-<table class="form_table">
+<table class="form_table" style="margin-top: 15px">
 <?php echo form_open('login'); ?>
     <tr class="form_table_row">
         <td>Prihlasovacie meno:</td>
