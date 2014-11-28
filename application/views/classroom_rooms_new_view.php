@@ -10,7 +10,7 @@
 <?php echo form_open('classroom/rooms/new/?search=' . $search) ?>
 <table class="form_table">
     <tr class="form_table_row">
-        <td>Krilo:</td>
+        <td>Krílo:</td>
         <td><input type="text" name="side" value="<?php echo set_value('side'); ?>"></td>
     </tr>
     <tr class="form_table_row">
@@ -18,11 +18,11 @@
         <td><input type="text" name="room_no" value="<?php echo set_value('room_no'); ?>"></td>
     </tr>
     <tr class="form_table_row">
-        <td>Kapacita ucebne:</td>
+        <td>Kapacita učebne:</td>
         <td><input type="text" name="capacity" value="<?php echo set_value('capacity'); ?>"></td>
     </tr>
     <tr class="form_table_row">
-        <td>Prislusenstvo:</td>
+        <td>Príslušenstvo:</td>
         <td><button onclick="newSchedule(); return false;">+ Pridať</button></td>
     </tr>
     <tr class="form_table_row">

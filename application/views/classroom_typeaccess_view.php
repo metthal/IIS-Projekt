@@ -14,7 +14,7 @@
 <thead>
     <tr>
         <th>Názov typu príslušenstva</th>
-        <th>Upraviť</th>
+        <th>Úpravy</th>
     </tr>
 </thead>
 <tbody class="content_table_body">
