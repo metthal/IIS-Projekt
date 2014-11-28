@@ -26,7 +26,7 @@ foreach ($typeaccesses as &$typeaccess)
     </select></td>
     </tr>
     <tr class="form_table_row">
-        <td>Seriove cislo:</td>
+        <td>Seriové číslo:</td>
         <td><input type="text" name="access_serial_no" value="<?php echo $access->seriove_cislo; ?>"></td>
     </tr>
     <tr><td colspan="2"><input type="submit" name="edit_request" value="Uložiť"></td></tr>

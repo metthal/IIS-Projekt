@@ -24,7 +24,7 @@
         <td><input type="text" name="capacity" value="<?php echo $room->kapacita; ?>"></td>
     </tr>
     <tr class="form_table_row">
-        <td>Prislusenstvo:</td>
+        <td>Príslušenstvo:</td>
         <td><button onclick="newSchedule(); return false;">+ Pridať</button></td>
     </tr>
     <tr class="form_table_row">

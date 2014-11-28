@@ -100,7 +100,7 @@ class Menu
             array(
                 new MenuItem('Učebne', 'classroom/rooms'),
                 new MenuItem('Príslušenstvá', 'classroom/access/'),
-                new MenuItem('Typ Prislusenstva', 'classroom/typeaccess')
+                new MenuItem('Typ Príslušenstva', 'classroom/typeaccess')
             )
         );
 

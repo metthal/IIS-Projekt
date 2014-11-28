@@ -9,7 +9,7 @@
 <?php echo form_open('profil/change_email'); ?>
 <table class="form_table">
     <tr class="form_table_row">
-        <td>Zadajte novy e-mail:</td>
+        <td>Zadajte nový e-mail:</td>
         <td><input type="text" name="mail"></td>
     </tr>
     <tr class="form_table_row">
