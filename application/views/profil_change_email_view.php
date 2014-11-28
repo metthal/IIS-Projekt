@@ -16,7 +16,7 @@
         <td>Heslo:</td>
         <td><input type="password" name="confirm_passwd"></td>
     </tr>
-    <tr><td colspan="2"><input type="submit" name="change_email_request" value="Change E-mail"></td></tr>
+    <tr><td colspan="2"><input type="submit" name="change_email_request" value="Zmeniť E-mail"></td></tr>
 </table>
 </form>
 
