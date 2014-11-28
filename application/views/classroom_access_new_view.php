@@ -23,8 +23,8 @@ foreach ($typeaccesses as &$typeaccess)
         <td><input type="text" name="access_serial_no" value="<?php echo set_value('access_serial_no'); ?>"></td>
     </tr>
     <tr><td colspan="2"><input type="submit" name="new_request" value="Uložiť"></td></tr>
-</form>
 </table>
+</form>
 
 </div>
 </div>

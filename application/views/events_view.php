@@ -8,19 +8,22 @@
     <input type="text" name="search" value="<?php echo $search ?>">
     <input type="submit" value="Hľadať"><br>
 </form>
+</div>
 
 <table class="content_table">
 <thead>
-    <th>Názov</th>
-    <th>Dátum konania</th>
-    <th>Od</th>
-    <th>Do</th>
-    <th>Predmet</th>
-    <th>Záznam</th>
-    <th>Stream</th>
-    <th>Rezervoval</th>
-    <th>Rezervované</th>
-    <th>Úpravy</th>
+    <tr>
+        <th>Názov</th>
+        <th>Dátum konania</th>
+        <th>Od</th>
+        <th>Do</th>
+        <th>Predmet</th>
+        <th>Záznam</th>
+        <th>Stream</th>
+        <th>Rezervoval</th>
+        <th>Rezervované</th>
+        <th>Úpravy</th>
+    </tr>
 </thead>
 <tbody class="content_table_body">
 <?php
@@ -43,7 +46,6 @@ foreach ($events as &$event)
     echo '></td>', PHP_EOL;
     echo '<td>', $event->uzivatel, '</td>', PHP_EOL;
     echo '<td>', $event->datum_rezervacie, '</td>', PHP_EOL;
-    echo '</td>', PHP_EOL;
     $edit_url = site_url() . 'event/edit/' . $event->akcia_ID . '/?search=' . $search;
     $delete_url = site_url() . 'event/delete/' . $event->akcia_ID . '/?search=' . $search;
     echo '<td class="last_field"><a href="', $edit_url, '">✎</a> <a href="', $delete_url, '">❌</a></td>', PHP_EOL;

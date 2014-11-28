@@ -7,9 +7,9 @@
 </form>
 <?php echo validation_errors(); ?>
 
-<table class="form_table">
 <?php echo form_open('admin/subject/edit/' . $subject->predmet_ID . '/?search=' . $search) ?>
     <input type="hidden" name="id" value="<?php echo $subject->predmet_ID; ?>">
+<table class="form_table">
     <tr class="form_table_row">
         <td>Názov:</td>
         <td><input type="text" name="name" value="<?php echo $subject->nazov_predmetu; ?>"></td>
@@ -56,8 +56,8 @@
         </td>
     </tr>
     <tr><td colspan="2"><input type="submit" name="edit_request" value="Uložiť"></td></tr>
-</form>
 </table>
+</form>
 
 </div>
 </div>

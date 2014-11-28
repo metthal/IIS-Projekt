@@ -34,8 +34,8 @@
         <td><input type="text" name="phone_number" value="<?php echo set_value('phone_number'); ?>"></td>
     </tr>
     <tr><td colspan="2"><input type="submit" name="new_request" value="Uložiť"></td></tr>
-</form>
 </table>
+</form>
 
 </div>
 </div>

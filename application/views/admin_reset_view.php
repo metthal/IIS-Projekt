@@ -3,9 +3,9 @@
 <h1><?php echo $subtitle; ?></h1>
 <?php echo validation_errors(); ?>
 
-<table class="form_table">
 <?php echo form_open('admin/reset'); ?>
-    <input type="hidden" name="reset_request" value="1">
+<input type="hidden" name="reset_request" value="1">
+<table class="form_table">
     <tr class="form_table_row">
         <td>Reset celej databazy:</td>
         <td><input type="checkbox" name="reset_db" value="1"></td>
@@ -23,8 +23,8 @@
         <td><input type="checkbox" name="reset_rooms"value="1"></td>
     </tr>
     <tr><td colspan="2"><input type="submit" value="Obnoviť"></td></tr>
-</form>
 </table>
+</form>
 
 </div>
 </div>

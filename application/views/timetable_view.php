@@ -28,7 +28,7 @@ foreach ($rooms as &$room)
 <div id="timetable">
 </div>
 
-<script>
+<script type="text/javascript">
 var currentDate = new Date();
 
 function createXmlHttpRequestObject()

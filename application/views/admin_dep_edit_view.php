@@ -9,9 +9,9 @@
 </div>
 <?php echo validation_errors(); ?>
 
-<table class="form_table">
 <?php echo form_open('admin/dep/edit/' . $dep->obor_ID . '/?search=' . $search) ?>
-    <input type="hidden" name="id" value="<?php echo $dep->obor_ID; ?>">
+<input type="hidden" name="id" value="<?php echo $dep->obor_ID; ?>">
+<table class="form_table">
     <tr class="form_table_row">
         <td>Názov:</td>
         <td><input type="text" name="name" value="<?php echo $dep->nazov; ?>"></td>
@@ -21,8 +21,8 @@
         <td><input type="text" name="title" value="<?php echo $dep->titul; ?>"></td>
     </tr>
     <tr><td colspan="2"><input type="submit" name="edit_request" value="Uložiť"></td></tr>
-</form>
 </table>
+</form>
 
 </div>
 </div>

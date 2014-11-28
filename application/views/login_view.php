@@ -3,8 +3,8 @@
 <div class="content_wrapper">
 <?php echo validation_errors(); ?>
 
-<table class="form_table" style="margin-top: 15px">
 <?php echo form_open('login'); ?>
+<table class="form_table" style="margin-top: 15px">
     <tr class="form_table_row">
         <td>Prihlasovacie meno:</td>
         <td><input type="text" name="username"></td>
@@ -14,7 +14,7 @@
         <td><input type="password" name="password"></td>
     </tr>
     <tr><td colspan="2"><input type="submit" name="login_request" value="Login"></td></tr>
-</form>
 </table>
+</form>
 </div>
 </div>

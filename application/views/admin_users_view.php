@@ -12,11 +12,13 @@
 
 <table class="content_table">
 <thead>
-<th>Login</th>
-<th>Meno</th>
-<th>E-mail</th>
-<th>Tel. číslo</th>
-<th>Úpravy</th>
+    <tr>
+        <th>Login</th>
+        <th>Meno</th>
+        <th>E-mail</th>
+        <th>Tel. číslo</th>
+        <th>Úpravy</th>
+    </tr>
 </thead>
 <tbody class="content_table_body">
 <?php

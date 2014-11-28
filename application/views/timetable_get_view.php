@@ -23,10 +23,9 @@ else
             else if ($timetable[$row][$hour] == 0)
                 echo '<td></td>', PHP_EOL;
             else
-                echo '<td class="reserved" colspan="', $timetable[$row][$hour][0], '"><a href="',
-                site_url(), 'event/edit/', $timetable[$row][$hour][2], '" ',
-                'info="Predmet: ', $timetable[$row][$hour][3], '&#xa;Ročník: ', $timetable[$row][$hour][4],
-                '&#xa;Obor: ', $timetable[$row][$hour][5], '&#xa;Garant: ', $timetable[$row][$hour][6],
+                echo '<td class="reserved" colspan="', $timetable[$row][$hour][0], '"><a href="#"',
+                'info="Predmet: ', $timetable[$row][$hour][2], '&#xa;Ročník: ', $timetable[$row][$hour][3],
+                '&#xa;Obor: ', $timetable[$row][$hour][4], '&#xa;Garant: ', $timetable[$row][$hour][5],
                 '">', $timetable[$row][$hour][1], '</a></td>', PHP_EOL;
         }
         echo '</tr>';

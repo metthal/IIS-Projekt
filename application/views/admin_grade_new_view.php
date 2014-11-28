@@ -8,8 +8,8 @@
 
 <?php echo validation_errors(); ?>
 
-<table class="form_table">
 <?php echo form_open('admin/grade/new/?search=' . $search) ?>
+<table class="form_table">
     <tr class="form_table_row">
         <td>Názov:</td>
         <td><input type="text" name="name" value="<?php echo set_value('name'); ?>"></td>
@@ -34,8 +34,8 @@
         </td>
     </tr>
     <tr><td colspan="2"><input type="submit" name="new_request" value="Uložiť"></td></tr>
-</form>
 </table>
+</form>
 
 </div>
 </div>

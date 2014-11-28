@@ -12,8 +12,10 @@
 
 <table class="content_table">
 <thead>
-<th>Názov typu príslušenstva</th>
-<th>Upraviť</th>
+    <tr>
+        <th>Názov typu príslušenstva</th>
+        <th>Upraviť</th>
+    </tr>
 </thead>
 <tbody class="content_table_body">
 <?php

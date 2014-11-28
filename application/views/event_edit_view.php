@@ -7,9 +7,11 @@
 </form>
 <?php echo validation_errors(); ?>
 
-<table class="form_table">
 <?php echo form_open('event/edit/' . $event->akcia_ID . '?search=' . $search) ?>
-    <input type="hidden" name="user" value="<?php echo login_data('id'); ?>">
+<input type="hidden" name="user" value="<?php echo login_data('id'); ?>">
+<input type="hidden" name="record" value="0">
+<input type="hidden" name="stream" value="0">
+<table class="form_table">
     <tr class="form_table_row">
         <td>Názov:</td>
         <td><input type="text" name="name" value="<?php echo $event->nazov; ?>"></td>
@@ -41,12 +43,10 @@
         <td>Trvanie:</td>
         <td><input type="text" name="duration" value="<?php echo $event->trvanie; ?>"></td>
     </tr>
-    <input type="hidden" name="record" value="0">
     <tr class="form_table_row">
         <td>Záznam:</td>
         <td><input type="checkbox" name="record" value="1" <?php if ($event->zaznam) echo 'checked'; ?>></td>
     </tr>
-    <input type="hidden" name="stream" value="0">
     <tr class="form_table_row">
         <td>Stream:</td>
         <td><input type="checkbox" name="stream" value="1" <?php if ($event->stream) echo 'checked'; ?>></td>
@@ -73,7 +73,7 @@
                             echo '>', $room->kridlo, $room->cislo_ucebne, '</option>', PHP_EOL;
                         }
                         echo '</select>', PHP_EOL;
-                        echo '<button id="', $counter, '" onclick="delSchedule(', $counter, '); return false;">❌</button>', PHP_EOL;
+                        echo '<button id="button', $counter, '" onclick="delSchedule(', $counter, '); return false;">❌</button>', PHP_EOL;
                         echo '</div>', PHP_EOL;
                         $counter++;
                     }
@@ -82,10 +82,10 @@
         </td>
     </tr>
     <tr><td colspan="2"><input type="submit" name="edit_request" value="Uložiť"></td></tr>
-</form>
 </table>
+</form>
 
-<script>
+<script type="text/javascript">
 var count = <?php echo count($schedules); ?>;
 
 function newSchedule()
@@ -96,7 +96,7 @@ function newSchedule()
     {
         if (new_room.childNodes[i].nodeName.toUpperCase() == "BUTTON")
         {
-            new_room.childNodes[i].setAttribute("id", count);
+            new_room.childNodes[i].setAttribute("id", "button" + count);
             new_room.childNodes[i].setAttribute("onclick", "delSchedule(" + count++ + "); return false;");
             break;
         }
@@ -109,7 +109,7 @@ function delSchedule(index)
     if (document.getElementsByClassName("room").length == 1)
         return;
 
-    var del_room = document.getElementById(index);
+    var del_room = document.getElementById("button" + index);
     del_room.parentNode.parentNode.removeChild(del_room.parentNode);
 }
 </script>

@@ -7,8 +7,10 @@
 </form>
 <?php echo validation_errors(); ?>
 
+
 <?php echo form_open('classroom/rooms/edit/' . $room->ucebna_ID . '/?search=' . $search) ?>
     <input type="hidden" name="id" value="<?php echo $room->ucebna_ID; ?>">
+<table class="form_table">
     <tr class="form_table_row">
         <td>Krídlo:</td>
         <td><input type="text" name="side" value="<?php echo $room->kridlo; ?>"></td>
@@ -42,8 +44,8 @@
                                 echo ' selected="selected"';
                             echo '>', $this->typeaccess_model->typeaccess_get_nametype($access->seriove_cislo),' - ', $access->seriove_cislo, '</option>', PHP_EOL;
                         }
-                        echo '</select>';
-                        echo '<button id="', $counter, '" onclick="delSchedule(', $counter, '); return false;">X</button>', PHP_EOL;
+                        echo '</select>', PHP_EOL;
+                        echo '<button id="button', $counter, '" onclick="delSchedule(', $counter, '); return false;">❌</button>', PHP_EOL;
                         echo '</div>', PHP_EOL;
                         $counter++;
                     }
@@ -52,10 +54,10 @@
         </td>
     </tr>
     <tr><td colspan="2"><input type="submit" name="edit_request" value="Uložiť"></td></tr>
-</form>
 </table>
+</form>
 
-<script>
+<script type="text/javascript">
 var count = <?php echo count($rooms); ?>;
 
 function newSchedule()
@@ -66,7 +68,7 @@ function newSchedule()
     {
         if (new_access.childNodes[i].nodeName.toUpperCase() == "BUTTON")
         {
-            new_access.childNodes[i].setAttribute("id", count);
+            new_access.childNodes[i].setAttribute("id", "button" + count);
             new_access.childNodes[i].setAttribute("onclick", "delSchedule(" + count++ + "); return false;");
             break;
         }
@@ -80,7 +82,7 @@ function delSchedule(index)
     if (document.getElementsByClassName("access").length == 1)
         return;
 
-    var del_access = document.getElementById(index);
+    var del_access = document.getElementById("button" + index);
     del_access.parentNode.parentNode.removeChild(del_access.parentNode);
 }
 </script>

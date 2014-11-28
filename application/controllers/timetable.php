@@ -56,7 +56,6 @@ class Timetable extends CI_Controller
                         $timetable[$i][$start_hour] = array(
                             $duration,
                             $event->nazov,
-                            $event->akcia_ID,
                             $event->predmet,
                             $event->rocnik,
                             $event->obor,
@@ -77,7 +76,6 @@ class Timetable extends CI_Controller
                 $timetable[$i][$start_hour] = array(
                     $duration,
                     $event->nazov,
-                    $event->akcia_ID,
                     $event->predmet,
                     $event->rocnik,
                     $event->obor,

@@ -8,8 +8,8 @@
 <?php echo validation_errors(); ?>
 
 <?php echo form_open('admin/users/edit/' . $user->uzivatel_ID . '/?search=' . $search) ?>
-<table class="form_table">
 <input type="hidden" name="id" value="<?php echo $user->uzivatel_ID; ?>">
+<table class="form_table">
     <tr class="form_table_row">
         <td>Prihlasovacie meno:</td>
         <td><input type="text" name="login" value="<?php echo $user->login; ?>"></td>
@@ -31,7 +31,8 @@
         <td><input type="text" name="phone_number" value="<?php echo $user->tel_cislo; ?>"></td>
     </tr>
     <tr><td colspan="2"><input type="submit" name="edit_request" value="Uložiť"></td></tr>
-</form>
 </table>
+</form>
+
 </div>
 </div>

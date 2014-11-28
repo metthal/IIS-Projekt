@@ -8,7 +8,7 @@
 <?php echo validation_errors(); ?>
 
 <?php echo form_open('classroom/rooms/new/?search=' . $search) ?>
-    <table class="form_table">
+<table class="form_table">
     <tr class="form_table_row">
         <td>Krilo:</td>
         <td><input type="text" name="side" value="<?php echo set_value('side'); ?>"></td>
@@ -24,7 +24,6 @@
     <tr class="form_table_row">
         <td>Prislusenstvo:</td>
         <td><button onclick="newSchedule(); return false;">+ Pridať</button></td>
-       </div>
     </tr>
     <tr class="form_table_row">
         <td colspan="2" style="text-align: center">
@@ -33,19 +32,20 @@
                  <select name="accesses[]">
                     <?php
                     foreach ($accesses as &$access)
-                    echo '<option value="', $access->prislusenstvo_ID, '">', $this->typeaccess_model->typeaccess_get_nametype($access->seriove_cislo), ' - ',$access->seriove_cislo, '</option>', PHP_EOL;
+                        echo '<option value="', $access->prislusenstvo_ID, '">',
+                            $this->typeaccess_model->typeaccess_get_nametype($access->seriove_cislo), ' - ',$access->seriove_cislo, '</option>', PHP_EOL;
                     ?>
                  </select>
-                 <button id="0" onclick="delSchedule(0); return false;">❌</button>
+                 <button id="button0" onclick="delSchedule(0); return false;">❌</button>
                </div>
             </div>
         </td>
     </tr>
     <tr><td colspan="2"><input type="submit" name="new_request" value="Uložiť"></td></tr>
-</form>
 </table>
+</form>
 
-<script>
+<script type="text/javascript">
 var count = 1;
 
 function newSchedule()
@@ -56,7 +56,7 @@ function newSchedule()
     {
         if (new_access.childNodes[i].nodeName.toUpperCase() == "BUTTON")
         {
-            new_access.childNodes[i].setAttribute("id", count);
+            new_access.childNodes[i].setAttribute("id", "button" + count);
             new_access.childNodes[i].setAttribute("onclick", "delSchedule(" + count++ + "); return false;");
             break;
         }
@@ -69,7 +69,7 @@ function delSchedule(index)
     if (document.getElementsByClassName("access").length == 1)
         return;
 
-    var del_access = document.getElementById(index);
+    var del_access = document.getElementById("button" + index);
     del_access.parentNode.parentNode.removeChild(del_access.parentNode);
 }
 </script>

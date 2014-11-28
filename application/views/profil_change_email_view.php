@@ -7,18 +7,18 @@
 <?php echo validation_errors(); ?>
 
 <?php echo form_open('profil/change_email'); ?>
-    <table class="form_table">
+<table class="form_table">
     <tr class="form_table_row">
         <td>Zadajte novy e-mail:</td>
-        <td><input type="text" name="email"></td>
+        <td><input type="text" name="mail"></td>
     </tr>
     <tr class="form_table_row">
-        <td>Heslo:</d>
+        <td>Heslo:</td>
         <td><input type="password" name="confirm_passwd"></td>
     </tr>
     <tr><td colspan="2"><input type="submit" name="change_email_request" value="Change E-mail"></td></tr>
-</form>
 </table>
+</form>
 
 </div>
 </div>

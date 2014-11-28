@@ -8,8 +8,8 @@
 <?php echo validation_errors(); ?>
 
 <?php echo form_open('classroom/access/edit/' . $access->prislusenstvo_ID . '/?search=' . $search) ?>
-<table class="form_table">
 <input type="hidden" name="id" value="<?php echo $access->prislusenstvo_ID; ?>">
+<table class="form_table">
      <tr class="form_table_row">
         <td>Typ Príslušenstva:</td>
         <td><select name="access_type">
@@ -30,8 +30,8 @@ foreach ($typeaccesses as &$typeaccess)
         <td><input type="text" name="access_serial_no" value="<?php echo $access->seriove_cislo; ?>"></td>
     </tr>
     <tr><td colspan="2"><input type="submit" name="edit_request" value="Uložiť"></td></tr>
-</form>
 </table>
+</form>
 
 </div>
 </div>

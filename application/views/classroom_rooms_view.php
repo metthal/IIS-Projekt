@@ -14,11 +14,13 @@
 
 <table class="content_table">
 <thead>
-<th>Krídlo</th>
-<th>číslo učebne</th>
-<th>Kapacita učebne</th>
-<th>Typ príslušenstva, počet kusov</th>
-<th>Úpravy</th>
+    <tr>
+        <th>Krídlo</th>
+        <th>číslo učebne</th>
+        <th>Kapacita učebne</th>
+        <th>Typ príslušenstva, počet kusov</th>
+        <th>Úpravy</th>
+    </tr>
 </thead>
 <tbody class="content_table_body">
 <?php

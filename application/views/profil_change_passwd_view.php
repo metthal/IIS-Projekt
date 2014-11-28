@@ -21,8 +21,8 @@
         <td> <input type="password" name="confirm_passwd"></td>
     </tr>
     <tr><td colspan="2"><input type="submit" name="change_passwd_request" value="Change password"></td></tr>
-</form>
 </table>
+</form>
 
 </div>
 </div>

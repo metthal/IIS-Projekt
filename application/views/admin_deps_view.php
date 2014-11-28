@@ -12,9 +12,11 @@
 
 <table class="content_table">
 <thead>
-    <th>Názov</th>
-    <th>Titul</th>
-    <th>Úpravy</th>
+    <tr>
+        <th>Názov</th>
+        <th>Titul</th>
+        <th>Úpravy</th>
+    </tr>
 </thead>
 <tbody class="content_table_body">
 <?php

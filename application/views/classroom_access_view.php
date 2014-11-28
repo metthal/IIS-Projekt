@@ -12,16 +12,19 @@
 
 <table class="content_table">
 <thead>
-<th>Názov príslušenstva</th>
-<th>Seriové číslo</th>
-<th>Používané v</th>
-<th>Upraviť</th>
+    <tr>
+        <th>Názov príslušenstva</th>
+        <th>Seriové číslo</th>
+        <th>Používané v</th>
+        <th>Úpravy</th>
+    </tr>
 </thead>
 <tbody class="content_table_body">
 <?php
 
 foreach ($accesss as &$access)
 {
+    echo '<tr>', PHP_EOL;
     echo '<td>', $this->typeaccess_model->typeaccess_name($access->typ_ID)->nazov_typu, '</td>', PHP_EOL;
     echo '<td>', $access->seriove_cislo, '</td>', PHP_EOL;
     if ($access->ucebna_ID != NULL)
