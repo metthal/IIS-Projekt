@@ -10,7 +10,7 @@
 <?php echo form_open('classroom/rooms/new/?search=' . $search) ?>
 <table class="form_table">
     <tr class="form_table_row">
-        <td>Krílo:</td>
+        <td>Krídlo:</td>
         <td><input type="text" name="side" value="<?php echo set_value('side'); ?>"></td>
     </tr>
     <tr class="form_table_row">
