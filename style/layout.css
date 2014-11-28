@@ -354,3 +354,38 @@ a:hover
     text-align: center;
     margin-bottom: 5px;
 }
+
+.news_wrapper
+{
+    padding-left: 60px;
+    padding-right: 60px;
+}
+
+.news
+{
+    position: relative;
+}
+
+.news h1
+{
+    text-align: left;
+    line-height: 20px;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.news span
+{
+    font-size: 10px;
+}
+
+.news p
+{
+    font-size: 14px;
+    text-align: justify;
+}
+
+.news hr
+{
+    margin-bottom: 20px;
+}
