@@ -30,7 +30,7 @@ foreach ($users as &$user)
     echo '<td>', $user->tel_cislo, '</td>', PHP_EOL;
     $edit_url = site_url() . 'admin/users/edit/' . $user->uzivatel_ID . '/?search=' . $search;
     $delete_url = site_url() . 'admin/users/delete/' . $user->uzivatel_ID . '/?search=' . $search;
-    echo '<td class="last_field"><a href="', $edit_url, '">E</a> <a href="', $delete_url, '">X</a></td>', PHP_EOL;
+    echo '<td class="last_field"><a href="', $edit_url, '">✎</a> <a href="', $delete_url, '">❌</a></td>', PHP_EOL;
     echo '</tr>', PHP_EOL;
 }
 

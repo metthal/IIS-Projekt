@@ -1,12 +1,19 @@
+<div class="content">
+<div class="content_wrapper">
+<div class="content_header">
+<h1><?php echo $subtitle; ?></h1>
 <?php
 
 $today = date('Y-m-d');
+echo '<div style="text-align: center">', PHP_EOL;
 echo '<button onclick="prevDay()">&larr;</button>', PHP_EOL;
 echo '<span id="currentDate">', $today, '</span>', PHP_EOL;
 echo '<button onclick="nextDay()">&rarr;</button><br>', PHP_EOL;
+echo '</div>', PHP_EOL;
 ?>
-Učebňa:
-<select id="rooms" onchange="getTimetable()">
+<div class="search_form">
+    Učebňa:
+    <select id="rooms" onchange="getTimetable()">
 <?php
 foreach ($rooms as &$room)
 {
@@ -14,7 +21,9 @@ foreach ($rooms as &$room)
 }
 
 ?>
-</select><br>
+</select>
+</div>
+</div>
 
 <div id="timetable">
 </div>
@@ -89,3 +98,6 @@ function getTimetable()
 getTimetable();
 
 </script>
+
+</div>
+</div>

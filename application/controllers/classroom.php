@@ -5,6 +5,8 @@ class Classroom extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+
+        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
     }
 
     public function index($action = 'rooms', $subaction = '')
