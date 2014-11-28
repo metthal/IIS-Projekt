@@ -25,6 +25,9 @@ foreach ($typeaccesses as &$typeaccess)
     <tr><td colspan="2"><input type="submit" name="new_request" value="Uložiť"></td></tr>
 </table>
 </form>
+<div class="req_hint">
+    <span class="hint">Povinné položky sú označené hrubým písmom</span>
+</div>
 
 </div>
 </div>
