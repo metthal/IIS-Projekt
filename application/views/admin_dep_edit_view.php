@@ -13,16 +13,19 @@
 <input type="hidden" name="id" value="<?php echo $dep->obor_ID; ?>">
 <table class="form_table">
     <tr class="form_table_row">
-        <td>Názov:</td>
+        <td class="required">Názov:</td>
         <td><input type="text" name="name" value="<?php echo $dep->nazov; ?>"></td>
     </tr>
     <tr class="form_table_row">
-        <td>Titul:</td>
+        <td class="required">Titul:</td>
         <td><input type="text" name="title" value="<?php echo $dep->titul; ?>"></td>
     </tr>
     <tr><td colspan="2"><input type="submit" name="edit_request" value="Uložiť"></td></tr>
 </table>
 </form>
+<div class="req_hint">
+    <span class="hint">Povinné položky sú označené hrubým písmom</span>
+</div>
 
 </div>
 </div>

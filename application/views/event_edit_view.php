@@ -13,11 +13,11 @@
 <input type="hidden" name="stream" value="0">
 <table class="form_table">
     <tr class="form_table_row">
-        <td>Názov:</td>
+        <td class="required">Názov:</td>
         <td><input type="text" name="name" value="<?php echo $event->nazov; ?>"></td>
     </tr>
     <tr class="form_table_row">
-        <td>Predmet:</td>
+        <td class="required">Predmet:</td>
         <td>
             <select name="subject">
                 <?php
@@ -35,13 +35,13 @@
         </td>
     </tr>
     <tr class="form_table_row">
-        <td>Dátum konania:</td>
+        <td class="required">Dátum konania:</td>
         <td><input type="text" name="date" value="<?php echo date('Y-m-d', strtotime($event->datum_konania)); ?>">
-            o <input type="text" name="hour" value="<?php echo date('G', strtotime($event->datum_konania)); ?>"></td>
+            od <input style="width: 30px" type="text" name="hour" value="<?php echo date('G', strtotime($event->datum_konania)); ?>"> hod.</td>
     </tr>
     <tr class="form_table_row">
-        <td>Trvanie:</td>
-        <td><input type="text" name="duration" value="<?php echo $event->trvanie; ?>"></td>
+        <td class="required">Trvanie:</td>
+        <td><input style="width: 30px" type="text" name="duration" value="<?php echo $event->trvanie; ?>"> hod.</td>
     </tr>
     <tr class="form_table_row">
         <td>Záznam:</td>
@@ -52,7 +52,7 @@
         <td><input type="checkbox" name="stream" value="1" <?php if ($event->stream) echo 'checked'; ?>></td>
     </tr>
     <tr class="form_table_row">
-        <td>Koná sa v:</td>
+        <td class="required">Koná sa v:</td>
         <td><button onclick="newSchedule(); return false;">+ Pridať</button></td>
     </tr>
     <tr class="form_table_row">
@@ -84,6 +84,9 @@
     <tr><td colspan="2"><input type="submit" name="edit_request" value="Uložiť"></td></tr>
 </table>
 </form>
+<div class="req_hint">
+    <span class="hint">Povinné položky sú označené hrubým písmom</span>
+</div>
 
 <script type="text/javascript">
 var count = <?php echo count($schedules); ?>;

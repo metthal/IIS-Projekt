@@ -15,6 +15,10 @@ class Classroom extends CI_Controller
             redirect('login', 'refresh');
 
         $privileges = $this->user_model->privileges(login_data('id'));
+        // only users with privileges 2 have access to this site
+        if ($privileges == 0)
+            redirect('home', 'refresh');
+
         $menu_items = $this->menu->load('menu_main', $privileges);
         $submenu_items = $this->menu->load('menu_classroom', $privileges);
 

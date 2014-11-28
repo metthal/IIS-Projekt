@@ -10,15 +10,15 @@
 <?php echo form_open('admin/subject/new/?search=' . $search) ?>
 <table class="form_table">
     <tr class="form_table_row">
-        <td>Názov:</td>
+        <td class="required">Názov:</td>
         <td><input type="text" name="name" value="<?php echo set_value('name'); ?>"></td>
     </tr>
     <tr class="form_table_row">
-        <td>Kredity:</td>
+        <td class="required">Kredity:</td>
         <td><input type="text" name="credits" value="<?php echo set_value('credits'); ?>"></td>
     </tr>
     <tr class="form_table_row">
-        <td>Garant:</td>
+        <td class="required">Garant:</td>
         <td>
             <select name="garant">
             <option selected="selected" value="<?php echo login_data('id'); ?>">(ja)</option>
@@ -34,7 +34,7 @@
         </td>
     </tr>
     <tr class="form_table_row">
-        <td>Ročník:</td>
+        <td class="required">Ročník:</td>
         <td>
             <select name="grade">
         <?php
@@ -51,6 +51,9 @@
     <tr><td colspan="2"><input type="submit" name="new_request" value="Uložiť"></td></tr>
 </table>
 </form>
+<div class="req_hint">
+    <span class="hint">Povinné položky sú označené hrubým písmom</span>
+</div>
 
 </div>
 </div>
