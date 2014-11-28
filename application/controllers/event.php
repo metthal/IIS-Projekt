@@ -14,7 +14,11 @@ class Event extends CI_Controller
         if (!check_login())
             redirect('login', 'refresh');
 
+        // only users with privileges 2 have access to this site
         $privileges = $this->user_model->privileges(login_data('id'));
+        if ($privileges == 0)
+            redirect('home', 'refresh');
+
         $menu_items = $this->menu->load('menu_main', $privileges);
 
         $data = array(

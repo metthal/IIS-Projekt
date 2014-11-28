@@ -90,6 +90,7 @@ a:hover
     display: table;
     table-layout: fixed;
     margin-bottom: 0px;
+    padding-left: 0px;
 }
 
 #submenu_wrapper
@@ -285,11 +286,12 @@ a:hover
 .timetable_table th
 {
     background-color: #1131bf;
-    font-weight: normal;
+    font-weight: bold;
     border-collapse: collapse;
     border-color: #1131bf;
     border-width: 1px;
     border-style: solid;
+    font-size: 13px;
 }
 
 .timetable_table .reserved

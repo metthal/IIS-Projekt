@@ -23,8 +23,6 @@ class Menu
             array(
                 new MenuItem('Novinky', 'home'),
                 new MenuItem('Rozvrh', 'timetable'),
-                new MenuItem('Učebne', 'classroom'),
-                new MenuItem('Akcie', 'event'),
                 new MenuItem('Profil', 'profil'),
                 new MenuItem('Odhlásiť', 'logout')
             ),
@@ -89,9 +87,7 @@ class Menu
 
         $this->menus['menu_classroom'] = array(
             // Student privileges
-            array(
-                new MenuItem('Učebne', 'classroom/rooms'),
-            ),
+            array(),
             // Professor privileges
             array(
                 new MenuItem('Učebne', 'classroom/rooms'),
@@ -101,24 +97,6 @@ class Menu
                 new MenuItem('Učebne', 'classroom/rooms'),
                 new MenuItem('Príslušenstvá', 'classroom/access/'),
                 new MenuItem('Typ Príslušenstva', 'classroom/typeaccess')
-            )
-        );
-
-        $this->menus['menu_events'] = array(
-            // Student privileges
-            array(
-                new MenuItem('Termíny', 'event/action'),
-                new MenuItem('Akcie', 'event/list')
-            ),
-            // Professor privileges
-            array(
-                new MenuItem('Termíny', 'event/action'),
-                new MenuItem('Akcie', 'event/list')
-            ),
-            // Admin privileges
-            array(
-                new MenuItem('Termíny', 'event/action'),
-                new MenuItem('Akcie', 'event/list')
             )
         );
     }
