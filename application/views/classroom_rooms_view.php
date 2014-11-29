@@ -5,6 +5,8 @@
 <?php
     if ($can_create)
         echo '<a href="', site_url(), 'classroom/rooms/new/?search=', $search , '">Pridať učebňu</a>';
+    else
+        echo '<br>';
 ?>
 <form class="search_form" method="get" action="<?php echo site_url(); ?>classroom/rooms/">
     <input type="text" name="search" value="<?php echo $search ?>">
@@ -19,7 +21,7 @@
         <th>číslo učebne</th>
         <th>Kapacita učebne</th>
         <th>Typ príslušenstva, počet kusov</th>
-        <th>Úpravy</th>
+        <?php if($can_create) echo '<th>Úpravy</th>' ?>
     </tr>
 </thead>
 <tbody class="content_table_body">
@@ -49,9 +51,12 @@ foreach ($rooms as &$room)
     echo '<td>', $room->cislo_ucebne, '</td>', PHP_EOL;
     echo '<td>', $room->kapacita, '</td>', PHP_EOL;
     echo '<td>', $array, '</td>', PHP_EOL;
-    $edit_url = site_url() . 'classroom/rooms/edit/' . $room->ucebna_ID . '/?search=' . $search;
-    $delete_url = site_url() . 'classroom/rooms/delete/' . $room->ucebna_ID . '/?search=' . $search;
-    echo '<td class="last_field"><a href="', $edit_url, '">✎</a> <a href="', $delete_url, '">&#x274C</a></td>', PHP_EOL;
+    if ($can_create)
+    {
+        $edit_url = site_url() . 'classroom/rooms/edit/' . $room->ucebna_ID . '/?search=' . $search;
+        $delete_url = site_url() . 'classroom/rooms/delete/' . $room->ucebna_ID . '/?search=' . $search;
+        echo '<td class="last_field"><a href="', $edit_url, '">✎</a> <a href="', $delete_url, '">&#x274C</a></td>', PHP_EOL;
+    }
     echo '</tr>', PHP_EOL;
 }
 

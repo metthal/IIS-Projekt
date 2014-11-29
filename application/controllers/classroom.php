@@ -114,7 +114,7 @@ class Classroom extends CI_Controller
             'search' => $search,
             'rooms' => $rooms,
             'accesses' => $accesses,
-            'can_create' => ($this->user_model->privileges(login_data('id')) == 0 ? false : true)
+            'can_create' => ($this->user_model->privileges(login_data('id')) > 1 ? true : false)
         );
         $this->load->view('classroom_rooms_view', $data);
     }
