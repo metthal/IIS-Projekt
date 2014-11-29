@@ -30,6 +30,16 @@
         <td>Tel. číslo:</td>
         <td><input type="text" name="phone_number" value="<?php echo $user->tel_cislo; ?>"></td>
     </tr>
+    <tr class="form_table_row">
+        <td class="required">Práva:</td>
+        <td>
+            <select name="privileges">
+                <option value="0" <?php if ($user->prava == 0) echo 'selected="selected"'; ?>>Študent</option>
+                <option value="1" <?php if ($user->prava == 1) echo 'selected="selected"'; ?>>Akademický pracovník</option>
+                <option value="2" <?php if ($user->prava == 2) echo 'selected="selected"'; ?>>Administrátor</option>
+            </select>
+        </td>
+    </tr>
     <tr><td colspan="2"><input type="submit" name="edit_request" value="Uložiť"></td></tr>
 </table>
 </form>

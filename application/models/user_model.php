@@ -77,7 +77,8 @@ class User_model extends CI_Model
             'heslo' => $user_data['password'],
             'meno' => $user_data['name'],
             'priezvisko' => $user_data['surname'],
-            'mail' => $user_data['mail']
+            'mail' => $user_data['mail'],
+            'prava' => $user_data['privileges']
         );
 
         if (array_key_exists('phone_number', $user_data))
@@ -99,7 +100,8 @@ class User_model extends CI_Model
             'meno' => $user_data['name'],
             'priezvisko' => $user_data['surname'],
             'mail' => $user_data['mail'],
-            'tel_cislo' => $user_data['phone_number']
+            'tel_cislo' => $user_data['phone_number'],
+            'prava' => $user_data['privileges']
         );
 
         $this->db->where('uzivatel_ID', $userID);
@@ -141,9 +143,7 @@ class User_model extends CI_Model
         {
             $this->db->where('uzivatel_ID', $id);
             $this->db->update('Uzivatel',array('heslo' => $user_data['new_passwd']));
-
         }
-
     }
 
     public function change_email($id,$email)

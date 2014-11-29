@@ -33,6 +33,16 @@
         <td>Tel. číslo:</td>
         <td><input type="text" name="phone_number" value="<?php echo set_value('phone_number'); ?>"></td>
     </tr>
+    <tr class="form_table_row">
+        <td class="required">Práva:</td>
+        <td>
+            <select name="privileges">
+                <option value="0">Študent</option>
+                <option value="1">Akademický pracovník</option>
+                <option value="2">Administrátor</option>
+            </select>
+        </td>
+    </tr>
     <tr><td colspan="2"><input type="submit" name="new_request" value="Uložiť"></td></tr>
 </table>
 </form>
