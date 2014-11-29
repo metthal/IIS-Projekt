@@ -16,21 +16,24 @@
 <!-- Zkontrolujte prosím nastavení kódování v hlavièce dokumentu 
      podle pou¾itého editoru -->
 
-<h1>Název zadání</h1> <!-- Nahradte názvem svého zadání -->
+<h1>Uèebne</h1> <!-- Nahradte názvem svého zadání -->
 
 <dl>
     <dt>Autoøi</dt>
-    <dd>První jméno <!-- Nahraïte skuteèným jménem a e-mailem autora a popisem èinnosti -->
-        <a href="mailto:xautor01@stud.fit.vutbr.cz">xautor01@stud.fit.vutbr.cz</a> -
-        správa u¾ivatelù a u¾ivatelské rozhraní
+    <dd>Marek Milkoviè <!-- Nahraïte skuteèným jménem a e-mailem autora a popisem èinnosti -->
+        <a href="mailto:xmilko01@stud.fit.vutbr.cz">xmilko01@stud.fit.vutbr.cz</a> -
+        Design informaèného systému,
+        Programovanie funkcionality infromaèného systému,
+        Databázový systém        
     </dd>
-    <dd>Druhé jméno <!-- Nahraïte skuteèným jménem a e-mailem autora a popisem èinnosti -->
-        <a href="mailto:xautor02@stud.fit.vutbr.cz">xautor02@stud.fit.vutbr.cz</a> - 
-        databázový subsystém
+    <dd>Luká¹ Vrabec <!-- Nahraïte skuteèným jménem a e-mailem autora a popisem èinnosti -->
+        <a href="mailto:xvrabe07@stud.fit.vutbr.cz">xvrabe07@stud.fit.vutbr.cz</a> - 
+        Programovanie funkcionality infromaèného systému,
+        Databázový systém,
+        Dokumentácia
     </dd>
     <dt>URL aplikace</dt>
-    <dd><a href="http://www.stud.fit.vutbr.cz/~xautor01/IIS">http://www.stud.fit.vutbr.cz/~xautor01/IIS</a></dd>
-    <dd>(pokud má aplikace více vstupních stránek, napi¹te obdobnì dal¹í URL)</dd>
+    <dd><a href="http://www.stud.fit.vutbr.cz/~xvrabe07/IIS">http://www.stud.fit.vutbr.cz/~xvrabe07/IIS</a></dd>
 </dl>
 
 <h2>U¾ivatelé systému pro testování</h2>
@@ -38,23 +41,141 @@
 <table>
 <tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
 <tr><td>admin</td><td>admin</td><td>Administrátor</td></tr>
-<tr><td>prodavac</td><td>prodavac</td><td>Prodavaè</td></tr>
-<tr><td>franta</td><td>franta</td><td>Zákazník</td></tr>
+<tr><td>profesor</td><td>profesor</td><td>Profesor</td></tr>
+<tr><td>student</td><td>student</td><td>©tudent</td></tr>
 </table>
 
-<h2>Implementace</h2>
-<p>Struèná dokumentace k implementaci, která popisuje, které PHP skripty implementují jednotlivé pøípady pou¾ití uvedené v use-case diagramu z IDS. V pøípadì, ¾e bylo nutno pøi implementaci uèinit zmìny v návrhu, musí být v dokumentaci zdùvodnìny.</p>
+<h2>Implementace</h2> 
+<p>Pri implementácií informaèného systému sme pou¾ili php framework "codeigniter". Zaèali sme implementovaním funkènosti informaèného systému a nakoniec sme sa venovali designu. Implementované boli
+v¹etky prípady u¾itia podµa ná¹ko UML diagramu z predmetu IDS s výnimkou aktèra "èas" a pridali sme do informaèného systému polo¾ku novinky ktorá informuje ¹tudentov o novinkách ohµadne pridania/odobratia
+a zmien v rozvrhoch.</p>
+Funkcie ktoré implementujú jednotlivé prípady u¾itia v use-case diagrame:
+<table>
+	<tbody>
+	<tr>
+		<td><b>PHP funkcia:</b></td>
+		<td><b>Prípad u¾itia:</b></td>
+	</tr>
+   <tr>
+		<td>ser_new</td>
+		<td>Prida» u¾ivateµa</td>
+	</tr>
+   <tr>
+		<td>user_edit</td>
+		<td>Upravi» u¾ivateµa</td>
+	</tr>
+   <tr>
+		<td>user_delete</td>
+		<td>Odstráni» u¾ivateµa</td>
+	</tr>
+   <tr>
+		<td>dep_new</td>
+		<td>Prida» obor</td>
+	</tr>
+   <tr>
+		<td>dep_edit</td>
+		<td>Upravi» obor</td>
+	</tr>
+   <tr>
+		<td>dep_delete</td>
+		<td>Odstráni» obor</td>
+	</tr>
+   <tr>
+		<td>grade_new</td>
+		<td>Prida» roèník</td>
+	</tr>
+   <tr>
+		<td>grade_edit</td>
+		<td>Upravi» roèník</td>
+	</tr>
+   <tr>
+		<td>grade_delete</td>
+		<td>Odstráni» roèník</td>
+	</tr>
+   <tr>
+		<td>subject_new</td>
+		<td>Prida» predmet</td>
+	</tr>
+		<td>subject_edit</td>
+		<td>Upravi» predmet</td>
+	</tr>
+   <tr>
+		<td>subject_delete</td>
+		<td>Odstráni» predmet</td>
+	</tr>
+   <tr>
+		<td>room_new</td>
+		<td>Prida» uèebòu</td>
+	</tr>
+		<td>room_edit</td>
+		<td>Upravi» uèebòu</td>
+	</tr>
+   <tr>
+		<td>room_delete</td>
+		<td>Odstráni» uèebòu</td>
+	</tr>
+   <tr>
+		<td>access_new</td>
+		<td>Prida» príslu¹enstvo</td>
+	</tr>
+		<td>access_edit</td>
+		<td>Upravi» príslu¹enstvo</td>
+	</tr>
+   <tr>
+		<td>access_delete</td>
+		<td>Odstráni» príslu¹enstvo</td>
+	</tr>
+   <tr>
+		<td>typeaccess_new</td>
+		<td>Prida» typ príslu¹enstva</td>
+	</tr>
+		<td>typeaccess_edit</td>
+		<td>Upravi» typ príslu¹enstva</td>
+	</tr>
+   <tr>
+		<td>typeaccess_delete</td>
+		<td>Odstráni» typ príslu¹enstva</td>
+	</tr>
+   <tr>
+		<td>event_new</td>
+		<td>Prida» akciu</td>
+	</tr>
+		<td>event_edit</td>
+		<td>Upravi» akci</td>
+	</tr>
+   <tr>
+		<td>event_delete</td>
+		<td>Odstráni» akciu</td>
+	</tr>
+   <tr>
+		<td>subject_new</td>
+		<td>Prida» predmet</td>
+	</tr>
+		<td>subject_edit</td>
+		<td>Upravi» predmet</td>
+	</tr>
+   <tr>
+		<td>ubject_delete</td>
+		<td>Odstráni» predmet</td>
+	</tr>
+	</tbody>
+</table>
 
 <h2>Instalace</h2>
 <ul>
-<li>Struènì popi¹te postup instalace na server</li>
-<li>Softwarové po¾adavky (verze PHP apod.)</li>
-<li>Jak rozbalit, konfigurovat, inicializovat databází, ...</li>
+<li>1. Prekopírovanie zlo¾ky "IIS" do webového adresára </li>
+<li>2. Nastavenie práv vo webovom adresári (644 - súbory, 755 - adresáre)</li>
+<li>3. V adresári "IIS" v súbore ".htaccess" v polo¾ke "RewriteBase" nastavenie cesty k súboru "IIS"</li>
+<li>4. Inicializácia databazy importovaním sql scriptu "ISS/db/schema.sql" do databázy </li>
+<li>5. Nastavenie prístupu k databaze v súbore "IIS/application/config/database.php" je potrebné vyplni» polo¾ky "username, password, database" </li>
+<br>Softwarové po¾iadavky: PHP verzia 5.3.3 a vy¹ia. Mysql verzia 5.1 a vy¹¹ia
 </ul>
 
 <h2>Známé problémy</h2>
-<p>Zde popi¹te, které body zadání (IDS a IIS) nejsou implementovány a z jakého dùvodu. Napø. &bdquo;Z èasových dùvodù nebyla implementována správa u¾ivatelù.&rdquo; Pomù¾ete tím zrychlit opravování, kdy¾ neimplementované funkce nebudeme muset dlouze hledat.</p>
-
+<p>Poèas návrhu informaèného systému sme dospeli k záveru ¾e nebudeme implementova» aktéra "èas" z toho dôvodu, ¾e chceme zachova» archiváciu akcií a predmetov v rozvrhu (Aktér èas mal odstraòova» akcie 
+z rozvrhu ktoré sa udiali v minulosti). </p>
+<p>Rovnako sme sa rozhodli neimplementova» v¹etky filtre ktoré mô¾e ¹tudent aplikova» poèas prezerania rozvrhu. Implementovaný je filter vyhladávania podµa dátumu.</p>
+<p>Nebola implementována polo¾ka "Novinky" ktorú sme do informaèného systému pridali len ako návrh na vylep¹enie. </p>
 </body>
 </html>
 
