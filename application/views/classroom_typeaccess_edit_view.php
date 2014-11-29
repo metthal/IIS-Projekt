@@ -11,11 +11,15 @@
 <input type="hidden" name="id" value="<?php echo $typeaccess->typ_prislusenstva_ID; ?>">
 <table class="form_table">
     <tr class="form_table_row">
-        <td>Názov typu príslušenstva:</td>
+        <td class="required">Názov typu príslušenstva:</td>
         <td><input type="text" name="typeaccess_name" value="<?php echo $typeaccess->nazov_typu; ?>"></td>
     </tr>
     <tr><td colspan="2"><input type="submit" name="edit_request" value="Uložiť"></td></tr>
 </table>
 </form>
+<div class="req_hint">
+    <span class="hint">Povinné položky sú označené hrubým písmom</span>
+</div>
+
 </div>
 </div>

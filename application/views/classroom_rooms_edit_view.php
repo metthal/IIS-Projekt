@@ -12,15 +12,15 @@
     <input type="hidden" name="id" value="<?php echo $room->ucebna_ID; ?>">
 <table class="form_table">
     <tr class="form_table_row">
-        <td>Krídlo:</td>
+        <td class="required">Krídlo:</td>
         <td><input type="text" name="side" value="<?php echo $room->kridlo; ?>"></td>
     </tr>
     <tr class="form_table_row">
-        <td>Číslo učebne:</td>
+        <td class="required">Číslo učebne:</td>
         <td><input type="text" name="room_no" value="<?php echo $room->cislo_ucebne; ?>"></td>
     </tr>
     <tr class="form_table_row">
-        <td>Kapacita učebne:</td>
+        <td class="required">Kapacita učebne:</td>
         <td><input type="text" name="capacity" value="<?php echo $room->kapacita; ?>"></td>
     </tr>
     <tr class="form_table_row">
@@ -56,6 +56,9 @@
     <tr><td colspan="2"><input type="submit" name="edit_request" value="Uložiť"></td></tr>
 </table>
 </form>
+<div class="req_hint">
+    <span class="hint">Povinné položky sú označené hrubým písmom</span>
+</div>
 
 <script type="text/javascript">
 var count = <?php echo count($rooms); ?>;
