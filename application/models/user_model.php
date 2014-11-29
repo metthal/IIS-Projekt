@@ -117,6 +117,17 @@ class User_model extends CI_Model
         return ($query->num_rows() == 0);
     }
 
+    public function check_passwd($id, $pass)
+    {
+        $this->db->select('uzivatel_ID');
+        $this->db->from('Uzivatel');
+        $this->db->where('uzivatel_ID !=', $id);
+        $this->db->where('heslo', $pass);
+
+        $query = $this->db->get();
+        return ($query->num_rows() == 0);
+    }
+
     public function check_mail($id, $mail)
     {
         $this->db->select('uzivatel_ID');
@@ -141,7 +152,6 @@ class User_model extends CI_Model
         {
             $this->db->where('uzivatel_ID', $id);
             $this->db->update('Uzivatel',array('heslo' => $user_data['new_passwd']));
-
         }
 
     }

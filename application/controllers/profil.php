@@ -47,8 +47,9 @@ class Profil extends CI_Controller
 
         if($this->input->post('change_passwd_request'))
         {
-            $this->form_validation->set_rules('old_passwd', 'Staré heslo', 'trim|required');
-            $this->form_validation->set_rules('new_passwd', 'Nové heslo', 'required|callback_change_passwd_request');
+            $this->form_validation->set_rules('old_passwd', 'Staré heslo', 'trim');
+            $this->form_validation->set_rules('new_passwd', 'Nové heslo', 'trim');
+            $this->form_validation->set_rules('confirm_passwd', 'Potvrdenie heslo', 'trim|required|callback_check_change_passwd');
             $this->form_validation->run();
 
             $old_passwd = $this->input->post('old_passwd');
@@ -59,15 +60,50 @@ class Profil extends CI_Controller
                 'new_passwd' => $new_passwd
             );
 
-            if($this->input->post('new_passwd') == $this->input->post('confirm_passwd'))
+            if($this->form_validation->run() != false)
             {
                 $this->user_model->change_passwd(login_data('id'),$data);
             }
-            else
-                $this->form_validation->set_message('change_passwd', 'Nove heslo nieje zhodne!');
 
         }
         $this->load->view('profil_change_passwd_view',$view_data);
+    }
+
+    public function check_change_passwd()
+    {
+        $data = $this->input->post(NULL);
+
+        if ($data['old_passwd'] == '')
+        {
+            $this->form_validation->set_message('check_change_passwd', 'Staré heslo nemôže byť prázdne!');
+            return false;
+        }
+
+        if ($data['new_passwd'] == '')
+        {
+            $this->form_validation->set_message('check_change_passwd', 'Nové heslo nemôže byť prázdne!');
+            return false;
+        }
+
+        if ($data['confirm_passwd'] == '')
+        {
+            $this->form_validation->set_message('check_change_passwd', 'Prosím vyplňte aj potvrdenie hesla!');
+            return false;
+        }
+
+        if ($this->user_model->check_passwd(login_data('id'),$data['old_passwd']))
+        {
+            $this->form_validation->set_message('check_change_passwd', 'Staré heslo nieje správne!');
+            return false;
+        }
+
+        if($data['new_passwd'] != $data['confirm_passwd'])
+        {
+            $this->form_validation->set_message('check_change_passwd', 'Heslá niesú rovnaké!');
+            return false;
+        }
+
+        return true;
     }
 
     public function change_email()
@@ -78,28 +114,64 @@ class Profil extends CI_Controller
 
         if($this->input->post('change_email_request'))
         {
-            $this->form_validation->set_rules('confirm_passwd', 'Heslo', 'trim|required');
-            $this->form_validation->set_rules('email', 'E-mail', 'required|callback_change_email_request');
-
+            $this->form_validation->set_rules('confirm_passwd', 'Heslo', 'trim');
+            $this->form_validation->set_rules('mail', 'E-mail', 'trim|callback_check_change_email');
             $this->form_validation->run();
 
+            $confirm_passwd = $this->input->post('confirm_passwd');
+            $mail = $this->input->post('mail');
+
             $data = array(
-                'subtitle' => 'Zmena e-mailu'
+                'confirm_passwd' => $confirm_passwd,
+                'mail' => $mail
             );
 
-            $user = $this->user_model->get(login_data('id'));
-
-            $passwd = $this->input->post('confirm_passwd');
-            $email = $this->input->post('email');
-
-            if ($user->heslo == $passwd)
+            if($this->form_validation->run() != false)
             {
-                $this->user_model->change_email($user->uzivatel_ID,$email);
+                $user = $this->user_model->get(login_data('id'));
+                $this->user_model->change_email($user->uzivatel_ID,$mail);
             }
-            else
-                $this->form_validation->set_message('change_email', 'Zle heslo');
         }
         $this->load->view('profil_change_email_view',$view_data);
+    }
+
+    public function check_change_email()
+    {
+
+        $data = $this->input->post(NULL);
+
+        if ($data['confirm_passwd'] == '')
+        {
+            $this->form_validation->set_message('check_change_email', 'Heslo nemôže byť prázdne!');
+            return false;
+        }
+
+        if ($this->user_model->check_passwd(login_data('id'),$data['confirm_passwd']))
+        {
+            $this->form_validation->set_message('check_change_email', 'Heslo nieje správne!');
+            return false;
+        }
+
+        if ($data['mail'] == '')
+        {
+            $this->form_validation->set_message('check_change_email', 'E-mail nemôže byť prázdny!');
+            return false;
+        }
+
+        $this->load->helper('email');
+        if (!valid_email($data['mail']))
+        {
+            $this->form_validation->set_message('check_change_email', 'Zadaný e-mail nie je v platnom formáte!');
+            return false;
+        }
+
+        if (!$this->user_model->check_mail(login_data('id'), $data['mail']))
+        {
+             $this->form_validation->set_message('check_change_email', 'Zadaný e-mail už je obsadený!');
+             return false;
+        }
+
+        return true;
     }
 }
 
