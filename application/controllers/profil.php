@@ -47,9 +47,7 @@ class Profil extends CI_Controller
 
         if($this->input->post('change_passwd_request'))
         {
-            $this->form_validation->set_rules('old_passwd', 'Staré heslo', 'trim');
-            $this->form_validation->set_rules('new_passwd', 'Nové heslo', 'trim');
-            $this->form_validation->set_rules('confirm_passwd', 'Potvrdenie heslo', 'trim|required|callback_check_change_passwd');
+            $this->form_validation->set_rules('confirm_passwd', 'Potvrdenie heslo', 'callback_check_change_passwd');
             $this->form_validation->run();
 
             $old_passwd = $this->input->post('old_passwd');
@@ -91,7 +89,7 @@ class Profil extends CI_Controller
             return false;
         }
 
-        if ($this->user_model->check_passwd(login_data('id'),$data['old_passwd']))
+        if (!$this->user_model->check_passwd(login_data('id'),$data['old_passwd']))
         {
             $this->form_validation->set_message('check_change_passwd', 'Staré heslo nieje správne!');
             return false;
@@ -114,8 +112,7 @@ class Profil extends CI_Controller
 
         if($this->input->post('change_email_request'))
         {
-            $this->form_validation->set_rules('confirm_passwd', 'Heslo', 'trim');
-            $this->form_validation->set_rules('mail', 'E-mail', 'trim|callback_check_change_email');
+            $this->form_validation->set_rules('mail', 'E-mail', 'callback_check_change_email');
             $this->form_validation->run();
 
             $confirm_passwd = $this->input->post('confirm_passwd');
@@ -146,7 +143,7 @@ class Profil extends CI_Controller
             return false;
         }
 
-        if ($this->user_model->check_passwd(login_data('id'),$data['confirm_passwd']))
+        if (!$this->user_model->check_passwd(login_data('id'),$data['confirm_passwd']))
         {
             $this->form_validation->set_message('check_change_email', 'Heslo nieje správne!');
             return false;

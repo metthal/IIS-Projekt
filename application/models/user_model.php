@@ -123,11 +123,11 @@ class User_model extends CI_Model
     {
         $this->db->select('uzivatel_ID');
         $this->db->from('Uzivatel');
-        $this->db->where('uzivatel_ID !=', $id);
+        $this->db->where('uzivatel_ID ', $id);
         $this->db->where('heslo', $pass);
 
         $query = $this->db->get();
-        return ($query->num_rows() == 0);
+        return ($query->num_rows() == 1);
     }
 
     public function check_mail($id, $mail)

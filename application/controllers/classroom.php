@@ -144,7 +144,7 @@ class Classroom extends CI_Controller
         {
             $this->form_validation->set_rules('side', 'Kridlo', 'trim');
             $this->form_validation->set_rules('room_no', 'Cislo ucebne', 'trim');
-            $this->form_validation->set_rules('capacity', 'Kapacita ucebne', 'trim');
+            $this->form_validation->set_rules('capacity', 'Kapacita ucebne', 'trim|callback_check_edit_room');
 
             if ($this->form_validation->run() != false)
             {
@@ -157,6 +157,48 @@ class Classroom extends CI_Controller
         $this->load->view('classroom_rooms_edit_view', $data);
     }
 
+    public function check_edit_room()
+    {
+        $data = $this->input->post(NULL);
+
+        if($data['side'] == '')
+        {
+            $this->form_validation->set_message('check_edit_room', 'Krídlo nemôže byť prázdne');
+            return false;
+        }
+
+        if(!preg_match('/^[a-zA-Z]+$/',$data['side']))
+        {
+            print_r($data['side']);
+            $this->form_validation->set_message('check_edit_room', 'Krídlo je v zlom formáte');
+            return false;
+        }
+
+        if($data['room_no'] == '')
+        {
+            $this->form_validation->set_message('check_edit_room', 'Číslo učebne nemôže byť prázdne');
+            return false;
+        }
+
+        if(!preg_match('/^[1-9]+$/',$data['room_no']))
+        {
+            $this->form_validation->set_message('check_edit_room', 'Číslo učebne je v zlom formáte');
+            return false;
+        }
+
+        if($data['capacity'] == '')
+        {
+            $this->form_validation->set_message('check_edit_room', 'Kapacita učebne nemôže byť prázdna');
+            return false;
+        }
+
+        if(!preg_match('/^[1-9]+$/',$data['capacity']))
+        {
+            $this->form_validation->set_message('check_edit_room', 'Kapacita učebne je v zlom formáte');
+            return false;
+        }
+    }
+
     public function room_new()
     {
         $data = array(
@@ -167,10 +209,9 @@ class Classroom extends CI_Controller
 
         if ($this->input->post('new_request'))
         {
-
             $this->form_validation->set_rules('side', 'Kridlo', 'trim');
             $this->form_validation->set_rules('room_no', 'Cislo ucebne', 'trim');
-            $this->form_validation->set_rules('capacity', 'Kapacita ucebne', 'trim');
+            $this->form_validation->set_rules('capacity', 'Kapacita ucebne', 'trim|callback_check_new_room');
 
             if ($this->form_validation->run() != false)
             {
@@ -180,6 +221,48 @@ class Classroom extends CI_Controller
         }
 
         $this->load->view('classroom_rooms_new_view', $data);
+    }
+
+    public function check_new_room()
+    {
+        $data = $this->input->post(NULL);
+
+        if($data['side'] == '')
+        {
+            $this->form_validation->set_message('check_new_room', 'Krídlo nemôže byť prázdne');
+            return false;
+        }
+
+        if(!preg_match('/^[a-zA-Z]+$/',$data['side']))
+        {
+            print_r($data['side']);
+            $this->form_validation->set_message('check_new_room', 'Krídlo je v zlom formáte');
+            return false;
+        }
+
+        if($data['room_no'] == '')
+        {
+            $this->form_validation->set_message('check_new_room', 'Číslo učebne nemôže byť prázdne');
+            return false;
+        }
+
+        if(!preg_match('/^[1-9]+$/',$data['room_no']))
+        {
+            $this->form_validation->set_message('check_new_room', 'Číslo učebne je v zlom formáte');
+            return false;
+        }
+
+        if($data['capacity'] == '')
+        {
+            $this->form_validation->set_message('check_new_room', 'Kapacita učebne nemôže byť prázdna');
+            return false;
+        }
+
+        if(!preg_match('/^[1-9]+$/',$data['capacity']))
+        {
+            $this->form_validation->set_message('check_new_room', 'Kapacita učebne je v zlom formáte');
+            return false;
+        }
     }
 
     public function access()
@@ -230,8 +313,7 @@ class Classroom extends CI_Controller
 
         if ($this->input->post('edit_request'))
         {
-            $this->form_validation->set_rules('access_type', 'Typ prislusenstva', 'trim');
-            $this->form_validation->set_rules('access_serial_no', 'Seriove cislo prislusenstva', 'trim');
+            $this->form_validation->set_rules('access_serial_no', 'Seriove cislo prislusenstva', 'trim|callback_check_edit_access');
 
             if ($this->form_validation->run() != false)
             {
@@ -244,6 +326,17 @@ class Classroom extends CI_Controller
         $this->load->view('classroom_access_edit_view', $data);
     }
 
+    public function check_edit_access()
+    {
+        $data = $this->input->post(NULL);
+
+        if($data['access_serial_no'] == '')
+        {
+            $this->form_validation->set_message('check_edit_access', 'Seriové číslo nemôže byť prázdne!');
+            return false;
+        }
+    }
+
     public function access_new()
     {
         $data = array(
@@ -254,9 +347,7 @@ class Classroom extends CI_Controller
 
         if ($this->input->post('new_request'))
         {
-            $this->form_validation->set_rules('access_type', 'Typ prislusenstva', 'trim');
-            $this->form_validation->set_rules('access_serial_no', 'Seriove cislo', 'trim');
-            $this->form_validation->set_rules('access_classroom', 'Cislo ucebne', 'trim');
+            $this->form_validation->set_rules('access_serial_no', 'Seriove cislo', 'trim|callback_check_new_access');
 
             if ($this->form_validation->run() != false)
             {
@@ -266,6 +357,17 @@ class Classroom extends CI_Controller
         }
 
         $this->load->view('classroom_access_new_view', $data);
+    }
+
+    public function check_new_access()
+    {
+        $data = $this->input->post(NULL);
+
+        if($data['access_serial_no'] == '')
+        {
+            $this->form_validation->set_message('check_new_access', 'Seriové číslo nemôže byť prázdne!');
+            return false;
+        }
     }
 
     public function typeaccess()
@@ -313,7 +415,7 @@ class Classroom extends CI_Controller
 
         if ($this->input->post('edit_request'))
         {
-            $this->form_validation->set_rules('typeaccess_name', 'Nazov typu prislusenstva', 'trim');
+            $this->form_validation->set_rules('typeaccess_name', 'Nazov typu prislusenstva', 'callback_check_edit_typeaccess');
 
             if ($this->form_validation->run() != false)
             {
@@ -326,6 +428,17 @@ class Classroom extends CI_Controller
         $this->load->view('classroom_typeaccess_edit_view', $data);
     }
 
+    public function check_edit_typeaccess()
+    {
+        $data = $this->input->post(NULL);
+
+        if($data['typeaccess_name'] == '')
+        {
+            $this->form_validation->set_message('check_edit_typeaccess', 'Typ príslušenstva nemôže byť prázdny!');
+            return false;
+        }
+    }
+
     public function typeaccess_new()
     {
         $data = array(
@@ -335,7 +448,7 @@ class Classroom extends CI_Controller
 
         if ($this->input->post('new_request'))
         {
-            $this->form_validation->set_rules('typeaccess_name', 'Nazov typu prislusenstva', 'trim');
+            $this->form_validation->set_rules('typeaccess_name', 'Nazov typu prislusenstva', 'callback_check_new_typeaccess');
 
             if ($this->form_validation->run() != false)
             {
@@ -345,6 +458,17 @@ class Classroom extends CI_Controller
         }
 
         $this->load->view('classroom_typeaccess_new_view', $data);
+    }
+
+    public function check_new_typeaccess()
+    {
+        $data = $this->input->post(NULL);
+
+        if($data['typeaccess_name'] == '')
+        {
+            $this->form_validation->set_message('check_new_typeaccess', 'Typ príslušenstva nemôže byť prázdny!');
+            return false;
+        }
     }
 }
 

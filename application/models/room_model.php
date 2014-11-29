@@ -56,11 +56,14 @@ class Room_model extends CI_Model
         $query = $this->db->get();
         $room = $query->result();
 
-        $this->db->from('Prislusenstvo');
-        foreach ($room_data['accesses'] as &$access)
+        if (array_key_exists('accesses',$room_data))
         {
-            $this->db->where('prislusenstvo_ID', $access);
-            $this->db->update('Prislusenstvo', array('ucebna_ID' => $room[0]->ucebna_ID));
+            $this->db->from('Prislusenstvo');
+            foreach ($room_data['accesses'] as &$access)
+            {
+                $this->db->where('prislusenstvo_ID', $access);
+                $this->db->update('Prislusenstvo', array('ucebna_ID' => $room[0]->ucebna_ID));
+            }
         }
     }
     public function room_delete($roomID)
