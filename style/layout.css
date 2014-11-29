@@ -53,14 +53,18 @@ a:hover
     padding-left: 20px;
 }
 
-.header span
+.header .logged_as
 {
     float: right;
     position: absolute;
-    top: 0;
-    right: 0;
-    padding-right: 10px;
-    padding-top: 10px;
+    bottom: 60px;
+    right: 0px;
+    margin-right: 5px;
+}
+
+.header .login
+{
+    font-weight: bold;
 }
 
 .footer
