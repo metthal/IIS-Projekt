@@ -87,6 +87,8 @@ class Event extends CI_Controller
             $this->form_validation->set_rules('name', 'Name', 'trim');
             $this->form_validation->set_rules('subject', 'Subject', 'trim');
             $this->form_validation->set_rules('date', 'Date', 'trim');
+            $this->form_validation->set_rules('duration', 'Duration', 'trim');
+            $this->form_validation->set_rules('hour', 'Hour', 'trim');
             $this->form_validation->set_rules('user', 'User', 'trim');
             $this->form_validation->set_rules('record', 'Record', 'trim');
             $this->form_validation->set_rules('stream', 'Stream', 'trim|callback_check_new_event');
@@ -183,9 +185,27 @@ class Event extends CI_Controller
             return false;
         }
 
+        if ((int)$new_data['hour'] >= 24)
+        {
+            $this->form_validation->set_message('check_new_event', 'Hodina musí byť v rozsahu 0-23');
+            return false;
+        }
+
         if ($new_data['duration'] == '')
         {
             $this->form_validation->set_message('check_new_event', 'Trvanie nemôže byť prázdne');
+            return false;
+        }
+
+        if (!preg_match('/^\d{1,2}$/', $new_data['duration']))
+        {
+            $this->form_validation->set_message('check_new_event', 'Trvanie je v zlom formáte');
+            return false;
+        }
+
+        if ((int)$new_data['duration'] == 0)
+        {
+            $this->form_validation->set_message('check_new_event', 'Trvanie nemôže byť 0');
             return false;
         }
 
@@ -205,6 +225,25 @@ class Event extends CI_Controller
         {
             $this->form_validation->set_message('check_new_event', 'Rooms');
             return false;
+        }
+
+        if (count($new_data['rooms']) != count(array_unique($new_data['rooms'])))
+        {
+            $this->form_validation->set_message('check_new_event', 'Akcia sa nemôže mať nastavené duplicitné učebne');
+            return false;
+        }
+
+        // do this only for edited entries
+        if (isset($new_data['id']))
+        {
+            foreach ($new_data['rooms'] as &$room)
+            {
+                if ($this->event_model->schedule_in_classroom($new_data['id'], $room))
+                {
+                    $this->form_validation->set_message('check_new_event', 'Akcia sa nemôže mať nastavené duplicitné učebne');
+                    return false;
+                }
+            }
         }
 
         return true;

@@ -116,6 +116,20 @@ class Event_model extends CI_Model
         return $this->db->get()->result();
     }
 
+    public function schedule_in_classroom($eventID, $roomID)
+    {
+        $this->db->select('*');
+        $this->db->from('Konanie_akcie');
+        $this->db->where('akcia_ID', $eventID);
+        $this->db->where('ucebna_ID', $roomID);
+
+        $query = $this->db->get();
+        if ($query->num_rows() == 0)
+            return false;
+
+        return true;
+    }
+
     public function reset()
     {
         $this->db->empty_table('Akcia');

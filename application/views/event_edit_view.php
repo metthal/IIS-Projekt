@@ -37,7 +37,8 @@
     <tr class="form_table_row">
         <td class="required">Dátum konania:</td>
         <td><input type="text" name="date" value="<?php echo date('Y-m-d', strtotime($event->datum_konania)); ?>">
-            od <input style="width: 30px" type="text" name="hour" value="<?php echo date('G', strtotime($event->datum_konania)); ?>"> hod.</td>
+            od <input style="width: 30px" type="text" name="hour" value="<?php echo date('G', strtotime($event->datum_konania)); ?>"> hod.
+            <span class="hint">(YYYY-mm-dd)</span></td>
     </tr>
     <tr class="form_table_row">
         <td class="required">Trvanie:</td>

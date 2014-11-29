@@ -1,12 +1,13 @@
 <div class="content">
 <div class="content_wrapper">
 <h1><?php echo $subtitle; ?></h1>
-<?php echo validation_errors(); ?>
 
 <form style="display: inline;" action="<?php echo site_url(), 'event/'; ?>">
     <input type="hidden" name="search" value="<?php echo $search; ?>">
     <input type="submit" value="< Späť">
 </form>
+
+<?php echo validation_errors(); ?>
 
 <?php echo form_open('event/new/?search=' . $search) ?>
 <input type="hidden" name="user" value="<?php echo login_data('id'); ?>">
@@ -35,7 +36,8 @@
     <tr class="form_table_row">
         <td class="required">Dátum konania:</td>
         <td><input type="text" name="date" value="<?php echo set_value('date'); ?>">
-            od <input style="width: 30px" type="text" name="hour" value="<?php echo set_value('hour'); ?>"> hod.</td>
+            od <input style="width: 30px" type="text" name="hour" value="<?php echo set_value('hour'); ?>"> hod.
+            <span class="hint">(YYYY-mm-dd)</span></td>
     </tr>
     <tr class="form_table_row">
         <td class="required">Trvanie:</td>

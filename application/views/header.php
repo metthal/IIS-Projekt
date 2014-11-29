@@ -8,5 +8,14 @@
 <body>
 <div class="mainbody">
 <div class="header">
-<h1>Učebny, such logo</h1>
-<span>very design, wow</span>
+<h1>Učebne, such logo</h1>
+<?php
+
+if (login_data('username'))
+{
+    echo '<div class="logged_as">', PHP_EOL;
+    echo 'Prihlásený ako <span class="login">', login_data('username'), '</span>', PHP_EOL;
+    echo '</div>', PHP_EOL;
+}
+
+?>
