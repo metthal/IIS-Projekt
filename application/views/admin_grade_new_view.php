@@ -16,7 +16,8 @@
     </tr>
     <tr class="form_table_row">
         <td class="required">Začiatok štúdia:</td>
-        <td><input type="text" name="start_date" value="<?php echo set_value('start_date'); ?>"></td>
+        <td><input type="text" name="start_date" value="<?php echo set_value('start_date'); ?>">
+            <span class="hint">(rok vo formáte YYYY)</span></td>
     </tr>
     <tr class="form_table_row">
         <td class="required">Obor:</td>
