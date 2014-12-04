@@ -38,7 +38,7 @@ foreach ($rooms as &$room)
             $access_name = $this->typeaccess_model->typeaccess_name($access->typ_ID);
             if (!in_array($access_name->nazov_typu,$array_access_name))
             {
-                $item_to_push = $access_name->nazov_typu . " (" . $this->typeaccess_model->typeaccess_get_type_count($access_name->nazov_typu) . " ks),";
+                $item_to_push = $access_name->nazov_typu . " (" . $this->typeaccess_model->typeaccess_get_type_count($access_name->nazov_typu) . " ks)";
                 array_push($array_access_name,$item_to_push);
             }
         }
