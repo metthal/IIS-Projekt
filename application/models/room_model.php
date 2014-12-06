@@ -92,7 +92,7 @@ class Room_model extends CI_Model
         return $this->db->query($query)->result();
     }
 
-    public function room_edit($roomID, $room_data)
+    public function room_edit($roomID, $room_data, $original_accesses)
     {
         $insert_data = array(
             'cislo_ucebne' => $room_data['room_no'],
@@ -110,7 +110,12 @@ class Room_model extends CI_Model
         $query = $this->db->get();
         $room = $query->result();
 
-        $this->db->from('Prislusenstvo');
+        foreach ($original_accesses as &$access)
+        {
+            $this->db->where('prislusenstvo_ID', $access->prislusenstvo_ID);
+            $this->db->update('Prislusenstvo', array('ucebna_ID' => NULL));
+        }
+
         foreach ($room_data['accesses'] as &$access)
         {
             $this->db->where('prislusenstvo_ID', $access);

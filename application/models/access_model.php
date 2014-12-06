@@ -25,6 +25,7 @@ class Access_model extends CI_Model
 
         return $this->db->get()->result();
     }
+
     public function access_get($accessID)
     {
         $this->db->select('*');
@@ -66,6 +67,15 @@ class Access_model extends CI_Model
 
         $this->db->where('prislusenstvo_ID', $accessID);
         $this->db->update('Prislusenstvo', $insert_data);
+    }
+
+    public function accesses_in_room($roomID)
+    {
+        $this->db->select('prislusenstvo_ID');
+        $this->db->from('Prislusenstvo');
+        $this->db->where('ucebna_ID', $roomID);
+
+        return $this->db->get()->result();
     }
 
     public function typeaccesslist($filter = '')

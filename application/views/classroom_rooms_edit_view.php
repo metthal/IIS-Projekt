@@ -33,14 +33,14 @@
                 <?php
 
                     $counter = 0;
-                    foreach ($rooms as &$room)
+                    foreach ($room_accesses as &$room_access)
                     {
                         echo '<div class="access">', PHP_EOL;
-                        echo '<select name="accesses[]">', PHP_EOL;
+                        echo '<select style="width: 175px" name="accesses[]">', PHP_EOL;
                         foreach ($accesses as &$access)
                         {
                             echo '<option value="', $access->prislusenstvo_ID, '"';
-                            if ($access->ucebna_ID == $room->ucebna_ID)
+                            if ($access->ucebna_ID == $room->ucebna_ID && $access->prislusenstvo_ID == $room_access->prislusenstvo_ID)
                                 echo ' selected="selected"';
                             echo '>', $this->typeaccess_model->typeaccess_get_nametype($access->seriove_cislo),' - ', $access->seriove_cislo, '</option>', PHP_EOL;
                         }
@@ -61,7 +61,7 @@
 </div>
 
 <script type="text/javascript">
-var count = <?php echo count($rooms); ?>;
+var count = <?php echo count($room_accesses); ?>;
 
 function newSchedule()
 {
