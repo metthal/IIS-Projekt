@@ -1,4 +1,6 @@
-USE xmilko01;
+USE xvrabe07;
+
+CHARSET utf8;
 
 DROP TABLE IF EXISTS Konanie_akcie;
 DROP TABLE IF EXISTS Predmet_obor;
@@ -56,7 +58,7 @@ CREATE TABLE Uzivatel (
     UNIQUE (mail)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci;
 INSERT INTO Uzivatel (login, heslo, meno, priezvisko, mail, tel_cislo, prava) VALUES ('admin', 'admin', 'Pán', 'Admin', 'xmilko01@stud.fit.vutbr.cz', '123456789', 2);
-INSERT INTO Uzivatel (login, heslo, meno, priezvisko, mail, tel_cislo, prava) VALUES ('prof', 'prof', 'Pán', 'Profesor', 'xvrabe07@stud.fit.vutbr.cz', '123456789', 1);
+INSERT INTO Uzivatel (login, heslo, meno, priezvisko, mail, tel_cislo, prava) VALUES ('profesor', 'profesor', 'Pán', 'Profesor', 'xvrabe07@stud.fit.vutbr.cz', '123456789', 1);
 INSERT INTO Uzivatel (login, heslo, meno, priezvisko, mail, tel_cislo, prava) VALUES ('student', 'student', 'Pán', 'Student', 'milkovic.marek@gmail.com', '123456789', 0);
 
 CREATE TABLE Obor (
@@ -130,7 +132,6 @@ INSERT INTO Typ_prislusenstva (nazov_typu) VALUES ('Počítač');
 
 INSERT INTO Ucebna (kridlo, cislo_ucebne, kapacita) VALUES ('A','230','80');
 INSERT INTO Ucebna (kridlo, cislo_ucebne, kapacita) VALUES ('C','123','220');
-INSERT INTO Ucebna (kridlo, cislo_ucebne, kapacita) VALUES ('B','105','150');
 
 INSERT INTO Prislusenstvo (seriove_cislo, typ_ID, ucebna_ID) VALUES ('12454523465','1','1');
 INSERT INTO Prislusenstvo (seriove_cislo, typ_ID, ucebna_ID) VALUES ('23454322223','2','2');
@@ -152,6 +153,10 @@ INSERT INTO Akcia (nazov, datum_rezervacie, zaznam, stream, trvanie, datum_konan
 INSERT INTO Akcia (nazov, datum_rezervacie, zaznam, stream, trvanie, datum_konania, predmet_ID, uzivatel_ID) VALUES ('Programovanie 2',STR_TO_DATE('01,01,2015,08,15', '%d,%m,%Y,%h,%i'),'0','0','4',STR_TO_DATE('06,01,2015,08,00', '%d,%m,%Y,%h,%i'),'2','2');
 INSERT INTO Akcia (nazov, datum_rezervacie, zaznam, stream, trvanie, datum_konania, predmet_ID, uzivatel_ID) VALUES('Informačné systémy',STR_TO_DATE('01,01,2015,09,00', '%d,%m,%Y,%h,%i'),'1','1','1',STR_TO_DATE('04,01,2015,8,00', '%d,%m,%Y,%h,%i'),'3','2');
 INSERT INTO Akcia (nazov, datum_rezervacie, zaznam, stream, trvanie, datum_konania, predmet_ID, uzivatel_ID) VALUES('Siete 1',STR_TO_DATE('01,01,2015,09,21', '%d,%m,%Y,%h,%i'),'0','0','3',STR_TO_DATE('06,01,2015,7,00', '%d,%m,%Y,%h,%i'),'4','2');
+INSERT INTO Akcia (nazov, datum_rezervacie, zaznam, stream, trvanie, datum_konania, predmet_ID, uzivatel_ID) VALUES('Programovanie 1',STR_TO_DATE('01,01,2015,08,30', '%d,%m,%Y,%h,%i'),'1','1','2',STR_TO_DATE('10,01,2015,7,00', '%d,%m,%Y,%h,%i'),'1','2');
+INSERT INTO Akcia (nazov, datum_rezervacie, zaznam, stream, trvanie, datum_konania, predmet_ID, uzivatel_ID) VALUES ('Programovanie 2',STR_TO_DATE('01,01,2015,08,45', '%d,%m,%Y,%h,%i'),'0','0','4',STR_TO_DATE('13,01,2015,08,00', '%d,%m,%Y,%h,%i'),'2','2');
+INSERT INTO Akcia (nazov, datum_rezervacie, zaznam, stream, trvanie, datum_konania, predmet_ID, uzivatel_ID) VALUES('Informačné systémy',STR_TO_DATE('01,01,2015,09,30', '%d,%m,%Y,%h,%i'),'1','1','1',STR_TO_DATE('11,01,2015,8,00', '%d,%m,%Y,%h,%i'),'3','2');
+INSERT INTO Akcia (nazov, datum_rezervacie, zaznam, stream, trvanie, datum_konania, predmet_ID, uzivatel_ID) VALUES('Siete 1',STR_TO_DATE('01,01,2015,09,22', '%d,%m,%Y,%h,%i'),'0','0','3',STR_TO_DATE('13,01,2015,7,00', '%d,%m,%Y,%h,%i'),'4','2');
 
 INSERT INTO Predmet_obor (predmet_ID, obor_ID) VALUES('1','1');
 INSERT INTO Predmet_obor (predmet_ID, obor_ID) VALUES('2','1');
@@ -162,3 +167,7 @@ INSERT INTO Konanie_akcie (ucebna_ID, akcia_ID, premietanie) VALUES('1','1','0')
 INSERT INTO Konanie_akcie (ucebna_ID, akcia_ID, premietanie) VALUES('2','2','1');
 INSERT INTO Konanie_akcie (ucebna_ID, akcia_ID, premietanie) VALUES('1','3','0');
 INSERT INTO Konanie_akcie (ucebna_ID, akcia_ID, premietanie) VALUES('1','4','1');
+INSERT INTO Konanie_akcie (ucebna_ID, akcia_ID, premietanie) VALUES('1','5','0');
+INSERT INTO Konanie_akcie (ucebna_ID, akcia_ID, premietanie) VALUES('2','6','1');
+INSERT INTO Konanie_akcie (ucebna_ID, akcia_ID, premietanie) VALUES('1','7','0');
+INSERT INTO Konanie_akcie (ucebna_ID, akcia_ID, premietanie) VALUES('1','8','1');

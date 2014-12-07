@@ -20,8 +20,18 @@ class Access_model extends CI_Model
     {
         $this->db->select('prislusenstvo_ID, seriove_cislo, typ_ID, ucebna_ID');
         $this->db->from('Prislusenstvo');
-        $this->db->where('seriove_cislo LIKE "' . $filter . '%"');
         $this->db->where('ucebna_ID',NULL);
+        $this->db->where('seriove_cislo LIKE "' . $filter . '%"');
+
+        return $this->db->get()->result();
+    }
+
+    public function accesslist_is_edit_null($roomID)
+    {
+        $this->db->select('prislusenstvo_ID, seriove_cislo, typ_ID, ucebna_ID');
+        $this->db->from('Prislusenstvo');
+        $this->db->where('ucebna_ID',NULL);
+        $this->db->or_where('ucebna_ID',$roomID);
 
         return $this->db->get()->result();
     }

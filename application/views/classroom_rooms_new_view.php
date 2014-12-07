@@ -22,7 +22,7 @@
         <td><input type="text" name="capacity" value="<?php echo set_value('capacity'); ?>"></td>
     </tr>
     <tr class="form_table_row">
-        <td>Príslušenstvo:</td>
+        <td class="required">Príslušenstvo:</td>
         <td><button onclick="newSchedule(); return false;">+ Pridať</button></td>
     </tr>
     <tr class="form_table_row">
